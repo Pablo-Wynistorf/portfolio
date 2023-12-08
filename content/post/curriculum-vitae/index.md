@@ -1,6 +1,6 @@
 ---
 title: Curriculum vitae
-description: Linked down below you can find my CV.
+description: Take a look at my CV!
 slug: cv
 date: 2023-12-08 00:00:00+0000
 categories:

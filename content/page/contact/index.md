@@ -1,0 +1,33 @@
+---
+title: Contact me
+links:
+  - title: E-Mail
+    description: Write me a Email
+    website: mailto:mail@pablo.one
+    image: email.svg
+
+  - title: GitHub
+    description: Connect with me on Github
+    website: https://github.com/Pablo-Wynistorf
+    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+
+
+  - title: Linkedin
+    description: Connect with me on LikedIn
+    website: https://www.linkedin.com/in/pablo-wynistorf/
+    image: linkedin.png
+    
+
+  - title: Swisscom Intranet
+    description: Connect with me on Swisscom Intranet (Only for Swisscom Employees)
+    website: https://intranet.swisscom.com/home/profile/i:0e.t%7Cazuread%7Ctaawypa5
+    image: swisscom.png
+menu:
+    main: 
+        weight: 2
+        params:
+            icon: link
+
+comments: false
+---
+Have a question, a suggestion, or just want to say hello? I'd love to hear from you! Feel free to send me a E-Mail, and I'll get back to you as soon as possible. Your thoughts and feedback are always welcome.

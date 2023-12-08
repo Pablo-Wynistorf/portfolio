@@ -20,3 +20,10 @@ name = "Linkedin"
 url = "https://www.linkedin.com/in/pablo-wynistorf/"
 [social.params]
 icon = "brand-linkedin"
+
+[[social]]
+identifier = "swisscom-intranet"
+name = "Swisscom Intranet"
+url = "https://intranet.swisscom.com/home/profile/i:0e.t%7Cazuread%7Ctaawypa5"
+[social.params]
+icon = "brand-swisscom"

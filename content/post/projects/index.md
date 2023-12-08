@@ -1,22 +1,16 @@
 ---
 title: Projects
-description: Some random information about me.
+description: Some of my projects that I've worked on
 slug: projects
 date: 2023-12-08 00:00:00+0000
 image: cover.jpg
 categories:
-    - projects
+    - work
+    - personal
+    - experience
 tags:
     - Cloud Computing
     - Swiss Skills
-    - Portfolio
-    - Test
 weight: 4       # You can add weight to some posts to override the default sorting (date descending)
 ---
-
-Welcome to Hugo theme Stack. This is your first post. Edit or delete it, then start writing!
-
-For more information about this theme, check the documentation: https://stack.jimmycai.com/
-
-
-> Photo by [Pablo Wynistorf]
+Comming Soon
