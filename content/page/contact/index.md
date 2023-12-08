@@ -2,17 +2,17 @@
 title: Contact me
 links:
   - title: E-Mail
-    description: Write me a Email
+    description: Get in touch with me via E-Mail
     website: mailto:mail@pablo.one
     image: email.svg
 
   - title: GitHub
     description: Connect with me on Github
     website: https://github.com/Pablo-Wynistorf
-    image: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+    image: github.png
 
 
-  - title: Linkedin
+  - title: LinkedIn
     description: Connect with me on LikedIn
     website: https://www.linkedin.com/in/pablo-wynistorf/
     image: linkedin.png
@@ -30,4 +30,6 @@ menu:
 
 comments: false
 ---
-Have a question, a suggestion, or just want to say hello? I'd love to hear from you! Feel free to send me a E-Mail, and I'll get back to you as soon as possible. Your thoughts and feedback are always welcome.
+Do you have a question, a suggestion, or just want to say hello? I'd love to hear from you! 
+Feel free to send me a E-Mail, and I'll get back to you as soon as possible.
+Your thoughts and feedback are always welcome.

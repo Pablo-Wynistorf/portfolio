@@ -1,7 +1,7 @@
 ---
-title: Me
-description: Learn something about me
-slug: me
+title: About me
+description: Let me introduce myself!
+slug: about-me
 date: 2023-12-08 00:00:00+0000
 image: avatar.png
 categories:

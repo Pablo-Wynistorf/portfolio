@@ -13,4 +13,3 @@ weight: 5
 <object data="/p/cv/Lebenslauf_Pablo_Wynistorf.pdf" width="100%" height="2350px" type="application/pdf"><object>
 
 
-> Photo by [Pablo Wynistorf]
