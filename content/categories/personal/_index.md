@@ -1,0 +1,10 @@
+---
+title: PERSONAL
+description: Any topics about me
+image: 
+
+# Badge style
+style:
+    background: "#2a9d8f"
+    color: "#fff"
+---
