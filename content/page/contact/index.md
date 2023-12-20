@@ -1,5 +1,5 @@
 ---
-title: Contact me
+title: Contact
 links:
   - title: E-Mail
     description: Get in touch with me via E-Mail
