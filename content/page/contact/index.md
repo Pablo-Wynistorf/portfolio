@@ -1,10 +1,17 @@
 ---
 title: Contact
 links:
+  - title: Microsoft Teams
+    description: Just send me a text on Microsoft Teams
+    website: https://teams.microsoft.com/l/chat/0/0?users=pablo.wynistorf@swisscom.com
+    image: teams.png
+
+
   - title: E-Mail
     description: Get in touch with me via E-Mail
     website: mailto:mail@pablo.one
     image: email.svg
+
 
   - title: GitHub
     description: Connect with me on Github
