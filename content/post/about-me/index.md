@@ -22,9 +22,9 @@ weight: 1
 ---
 
 Welcome!
-This is the portfolio of Pablo Wynistorf.
+My name is Pablo Wynistorf.
 
-I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **third year of four** as a **Computer Scientist in Plattformengeneering**.
+I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **third year** as a **Computer Scientist in Plattformengeneering**.
 
 During my free time, I have a variety of hobbies that add value to my life.
 
