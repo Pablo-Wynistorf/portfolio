@@ -4,7 +4,7 @@ links:
   - title: Microsoft Teams
     description: Just send me a text on Microsoft Teams
     website: https://teams.microsoft.com/l/chat/0/0?users=pablo.wynistorf@swisscom.com
-    image: teams.png
+    image: teams.svg
 
 
   - title: E-Mail
@@ -16,13 +16,13 @@ links:
   - title: GitHub
     description: Connect with me on Github
     website: https://github.com/Pablo-Wynistorf
-    image: github.png
+    image: github.svg
 
 
   - title: LinkedIn
     description: Connect with me on LikedIn
     website: https://www.linkedin.com/in/pablo-wynistorf/
-    image: linkedin.png
+    image: linkedin.svg
     
 
   - title: Swisscom Intranet
@@ -31,9 +31,9 @@ links:
     image: swisscom.png
 menu:
     main: 
-        weight: 2
+        weight: 4
         params:
-            icon: link
+            icon: contact
 
 comments: false
 ---
