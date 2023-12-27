@@ -2,7 +2,6 @@
 title: "Skills"
 layout: "page"
 description: "Here is a list of my skills I gained in my first three years of my apprenticeship."
-slug: skills
 image: skills.jpeg
 menu:
     main:
