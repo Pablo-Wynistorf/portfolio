@@ -1,10 +1,10 @@
 ---
-title: HTML & CSS
-slug: html
+title: AWS (Amazon Web Services)
+slug: aws
 date: 2023-12-29 00:00:00+0000
 image: 
 categories:
-    - personal
+    - 
 tags:
     - 
 weight: 1
