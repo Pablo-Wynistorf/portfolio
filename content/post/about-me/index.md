@@ -21,7 +21,7 @@ tags:
 weight: 1
 ---
 
-Welcome!
+Hi!
 My name is Pablo Wynistorf.
 
 I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **third year** as a **Computer Scientist in Plattformengeneering**.
