@@ -1,10 +1,10 @@
 ---
-title: HTML & CSS
-slug: html
-date: 2023-12-29 00:00:00+0000
+title: Docker
+slug: docker
+date: 2024-02-19 00:00:00+0000
 image: 
 categories:
-    - personal
+    - 
 tags:
     - 
 weight: 1

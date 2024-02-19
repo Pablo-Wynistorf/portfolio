@@ -1,6 +1,6 @@
 ---
-title: Monitoring / Alerting
-slug: monitoring
+title: Cloudflare
+slug: cloudflare
 date: 2024-02-19 00:00:00+0000
 image: 
 categories:

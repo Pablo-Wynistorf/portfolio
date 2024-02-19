@@ -1,6 +1,6 @@
 ---
-title: Monitoring / Alerting
-slug: monitoring
+title: SQL
+slug: sql
 date: 2024-02-19 00:00:00+0000
 image: 
 categories:
