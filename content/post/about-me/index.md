@@ -46,7 +46,9 @@ This carefully curated mix of activities shapes my dynamic and well-rounded life
 I have participated in the **[SwissSkills competitionships 2023](https://www.ict-berufsbildung.ch/ictskills2023)** in the **Cloud Computing** category and reached the **[second place](https://www.ict-berufsbildung.ch/resources/Results-ICTskills2023.pdf)**. In cause of that, I got invited to a assessment, where the best two participants of each year SwissSkills 2021 and SwissSkills 2022 are competing against each other, in order to find the best matching competitor for the **[WorldSkills 2024 in Lyon](https://worldskills.org/what/competitions/worldskills-lyon-2024)**. I'm very proud and happy to be able to say, that I got selected by the SwissSkills Comitee. That concretely means that I will represent Switzerland in the **[WorldSkills 2024 in Lyon, France](https://worldskills.org/what/competitions/worldskills-lyon-2024)**. 
 
 
+And if you want to know more about me and my skills, please have a look at my [Skills List](/skills).
 
-If I have aroused your interest, please feel free to take a look at my [Curriculum vitae](/p/cv/). 
+If I have aroused your interest, please feel free to take a look at my [Curriculum vitae](/p/cv/).
+
 
 > Photo by [Pablo Wynistorf](https://www.pablo.one)
