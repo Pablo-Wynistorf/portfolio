@@ -43,3 +43,5 @@ A glimpse into the technical and scenic aspects of the festival:
 Discover more about our network setup at the festival in this [LinkedIn post](https://www.linkedin.com/feed/update/urn:li:activity:7216422673751437314).
 
 > Photo by [Pablo Wynistorf](https://www.pablo.one)
+
+> Titel image by [baselundregion.ch](https://baselundregion.ch/2023/06/22/von-basel-nach-frauenfeld-das-openair-frauenfeld-vom-06-bis-08-juli-2023/)

@@ -39,3 +39,5 @@ At the prestigious UEFA Champions League Final 2023 held in Istanbul, our team p
 [Intranet Post (For Swisscom Employees only)](https://intranet.swisscom.com/home/articles/tgeduj04/yes_we_did_it_)
 
 > Photo by [Pablo Wynistorf](https://www.pablo.one)
+
+> Titel image by [luzernerzeitung.ch](https://www.luzernerzeitung.ch/sport/presseschau-city-beendet-seinen-alptraum-guardiola-sein-drama-das-sind-die-stimmen-zum-triumph-von-manchester-city-ld.2471724)

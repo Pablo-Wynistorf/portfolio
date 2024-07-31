@@ -32,7 +32,7 @@ First and foremost is my dedication to fitness, involving a consistent gym routi
 
 In addition, I have a keen interest in computer science, and I follow a wide range of **[IT projects](https://github.com/Pablo-Wynistorf?tab=repositories)**. This immersive engagement adds another layer to my multifaceted pursuits, highlighting my passion for technology and innovation.
 
-When I step outside, I immerse myself in the tranquility of nature. Whether skillfully flying my drone to capture beautiful shots or simply taking a peaceful walk, I find comfort and inspiration in the natural world. By the way, every aerial photograph in my portfolio is taken by me.
+When I step outside, I immerse myself in the tranquility of nature. Whether skillfully flying my drone to capture beautiful shots or simply taking a peaceful walk, I find comfort and inspiration in the natural world.
 
 In my leisure moments, I improve my culinary skills. I take great pleasure in the careful art of cooking and baking, considering it both a creative outlet and a way to relax.
 
