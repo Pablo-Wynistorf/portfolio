@@ -2,7 +2,7 @@
 title: About me
 description: Let me introduce myself!
 slug: about-me
-date: 2023-12-08 00:00:00+0000
+date: 2024-07-31 00:00:00+0000
 image: pablo-wynistorf.png
 categories:
     - personal
@@ -24,7 +24,7 @@ weight: 1
 Hi!
 My name is Pablo Wynistorf.
 
-I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **third year** as a **Computer Scientist in Plattformengeneering**.
+I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **fourth year** as a **Computer Scientist in Plattformengeneering**.
 
 During my free time, I have a variety of hobbies that add value to my life.
 
