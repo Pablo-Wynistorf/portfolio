@@ -6,10 +6,6 @@ RUN apt update && \
     apt install -y git && \
     apt install -y hugo
 
-RUN git clone https://github.com/Pablo-Wynistorf/portfolio.git
-
-WORKDIR /src/portfolio
-
 RUN hugo
 
 FROM alpine:latest
@@ -19,7 +15,7 @@ RUN apk update && \
 
 WORKDIR /usr/share/nginx/html
 
-COPY --from=builder /src/portfolio/public/ .
+COPY --from=builder /src/public/ .
 
  COPY nginx.conf /etc/nginx/nginx.conf 
 
