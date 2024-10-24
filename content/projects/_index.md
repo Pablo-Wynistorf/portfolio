@@ -6,7 +6,7 @@ image: skills.jpeg
 menu:
     main:
         name: Projects
-        weight: 3
+        weight: 4
         params:
             icon: books
 ---

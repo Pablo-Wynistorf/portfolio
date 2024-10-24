@@ -31,9 +31,6 @@ default = "Licensed under Pablo Wynistorf "
 [[widgets.homepage]]
 type = "search"
 
-[[widgets.homepage]]
-type = "archives"
-
 [widgets.homepage.params]
 limit = 7
 

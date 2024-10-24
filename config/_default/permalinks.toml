@@ -1,5 +1,6 @@
 # Permalinks format of each content section
 post = "/p/:slug/"
 page = "/:slug/"
+certifications = "/certifications/:slug/"
 skills = "/skills/:slug/"
 projects = "/projects/:slug/"

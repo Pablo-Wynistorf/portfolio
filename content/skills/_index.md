@@ -6,7 +6,7 @@ image: skills.jpeg
 menu:
     main:
         name: Skills
-        weight: 2
+        weight: 3
         params:
             icon: skills
 ---
