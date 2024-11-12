@@ -1,6 +1,6 @@
 ---
 title: Medallion for Excellence @ Worldskills 2024, Lyon
-slug: wordskills
+slug: worldskills
 date: 2024-10-24T00:00:00+0000
 image: worldskills-lyon-2024.jpg
 categories:
