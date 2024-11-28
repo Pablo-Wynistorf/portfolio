@@ -17,8 +17,8 @@ I am proud to announce that I am now an **AWS Certified Solutions Architect - Pr
 
 ### Certification Details
 
-- **Certification ID**: KXF09WT24FVQ1GGD
-- **Date Achieved**: May, 2023
+- **Certification ID**: 55227318f07a4592ad5900bf54f543d4
+- **Date Achieved**: Nov, 2024
 - **Credly Profile**: [View on Credly](https://www.credly.com/badges/539303ec-c8fd-48dd-ba25-043f52f1e5de/public_url) 
 
 #### Certification PDF
