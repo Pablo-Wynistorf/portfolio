@@ -1,7 +1,7 @@
 ---
 title: AWS Certified Solutions Architect - Professional
 slug: aws-certified-solutions-architect-professional
-date: 2024-10-24T00:00:00+0000
+date: 2024-11-28T00:00:00+0000
 image: aws_logo.png
 categories:
     - AWS
