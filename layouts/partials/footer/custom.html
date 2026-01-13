@@ -1,4 +1,31 @@
 <!-- Analytics Tracker -->
+<style>
+  .visitor-counter-wrapper {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid var(--card-separator-color, #e0e0e0);
+  }
+  
+  .visitor-counter-text {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--card-text-color-main, #333);
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .visitor-counter-text {
+      color: var(--card-text-color-main, #e0e0e0);
+    }
+  }
+</style>
+
+<div class="visitor-counter-wrapper">
+    <div class="visitor-counter-text">
+        <span id="visitor-count">Loading visitor count...</span>
+    </div>
+</div>
+
 <script>
   (function () {
     const url = "https://count.onedns.ch";
@@ -27,19 +54,14 @@
       }
     };
     
-    // Auto-run
-    window.AnalyticsTracker.refresh();
+    // Auto-run and update display
+    window.AnalyticsTracker.refresh().then(count => {
+      const element = document.getElementById("visitor-count");
+      if (element && count > 0) {
+        element.textContent = `👁️ Visitors: ${count.toLocaleString()}`;
+      } else if (element) {
+        element.textContent = "Visitor count unavailable";
+      }
+    });
   })();
-</script>
-
-<!-- Update visitor count if element exists -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const visitorCountEl = document.getElementById("visitor-count");
-    if (visitorCountEl) {
-      AnalyticsTracker.refresh().then(count => {
-        visitorCountEl.textContent = count;
-      });
-    }
-  });
 </script>

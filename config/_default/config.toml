@@ -1,8 +1,10 @@
 # Change baseurl before deploy
 baseurl = "https://pablo.one"
 languageCode = "en-us"
-paginate = 100
 title = "Pablo Wynistorf"
+
+[pagination]
+pagerSize = 100
 
 # Available values: en, fr, id, ja, ko, pt-br, zh-cn, zh-tw, es, de, nl, it, th, el, uk, ar
 defaultContentLanguage = "en"
