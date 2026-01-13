@@ -1,0 +1,45 @@
+<!-- Analytics Tracker -->
+<script>
+  (function () {
+    const url = "https://count.onedns.ch";
+    
+    async function send() {
+      try {
+        const res = await fetch(url, {
+          method: "POST",
+          mode: "cors",
+          credentials: "omit"
+        });
+        return await res.json();
+      } catch {
+        return null;
+      }
+    }
+    
+    window.AnalyticsTracker = {
+      count: 0,
+      async refresh() {
+        const data = await send();
+        if (data && typeof data.count === "number") {
+          this.count = data.count;
+        }
+        return this.count;
+      }
+    };
+    
+    // Auto-run
+    window.AnalyticsTracker.refresh();
+  })();
+</script>
+
+<!-- Update visitor count if element exists -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const visitorCountEl = document.getElementById("visitor-count");
+    if (visitorCountEl) {
+      AnalyticsTracker.refresh().then(count => {
+        visitorCountEl.textContent = count;
+      });
+    }
+  });
+</script>
