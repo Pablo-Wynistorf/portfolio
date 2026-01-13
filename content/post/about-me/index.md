@@ -21,10 +21,11 @@ tags:
 weight: 1
 ---
 
-Hi!
-My name is Pablo Wynistorf.
+Hi, I’m Pablo Wynistorf.
 
-I'm an **IT apprentice** at [Swisscom (Schweiz) AG](https://www.swisscom.ch) located in Bern, Switzerland. I am currently in my **fourth year** as a **Computer Scientist in Plattformengeneering**.
+I’m a Technical Account Manager (TAM) in the Enterprise Support team at [Amazon Web Services (AWS)](https://aws.amazon.com) in Zürich, Switzerland.
+
+Before joining AWS, I completed my IT apprenticeship in Platform Engineering at [Swisscom (Schweiz) AG](https://www.swisscom.ch), earning my Swiss Federal Certificate of Competence (EFZ) in Computer Science.
 
 During my free time, I have a variety of hobbies that add value to my life.
 
