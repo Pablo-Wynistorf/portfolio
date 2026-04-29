@@ -23,10 +23,6 @@ weight: 1
 
 Hi, I’m Pablo Wynistorf.
 
-I’m a Technical Account Manager (TAM) in the Enterprise Support team at [Amazon Web Services (AWS)](https://aws.amazon.com) in Zürich, Switzerland.
-
-Before joining AWS, I completed my IT apprenticeship in Platform Engineering at [Swisscom (Schweiz) AG](https://www.swisscom.ch), earning my Swiss Federal Certificate of Competence (EFZ) in Computer Science.
-
 During my free time, I have a variety of hobbies that add value to my life.
 
 First and foremost is my dedication to fitness, involving a consistent gym routine up to five times a week. This not only keeps me physically healthy but also provides a sense of accomplishment.
