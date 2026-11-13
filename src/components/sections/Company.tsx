@@ -1,21 +1,22 @@
 import { FadeIn, Label, Reveal } from "@/components/motion";
 import { company } from "@/data/content";
+import { t } from "@/i18n/t";
 
 export function Company() {
   return (
     <section id="company" className="border-t border-ink px-5 py-24 md:px-8 md:py-36">
       <div className="mb-16 grid gap-6 md:grid-cols-12">
         <Label n="02.2" className="md:col-span-3">
-          Company
+          {t.company.label}
         </Label>
         <div className="md:col-span-9">
           <Reveal
             as="h2"
-            text="Founder, Nextenic GmbH."
+            text={t.company.title}
             className="font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight md:text-8xl"
           />
           <p className="mt-8 max-w-xl text-lg text-muted">
-            {company.summary} {company.place}, since {company.founded}.
+            {company.summary} {company.place}, {t.company.since} {company.founded}.
           </p>
           <a
             href={company.url}

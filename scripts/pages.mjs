@@ -2,7 +2,16 @@
 // JSON-LD. Used by gen-md.mjs (writes public/*.md, llms.txt, sitemap, robots)
 // and postbuild.mjs (prerenders HTML for crawlers and AI agents).
 // Reads src/data/content.ts directly (Node strips the TypeScript types).
-import { about, certifications, company, profile, projects, skills, stats, timeline } from "../src/data/content.ts";
+import * as base from "../src/data/content.ts";
+
+// The page builders read these. English by default; postbuild swaps in a
+// translated copy (useContent) to prerender /de, /fr and /it.
+let about, certifications, company, profile, projects, skills, stats, timeline;
+export function useContent(c) {
+  ({ about, certifications, company, profile, projects, skills, stats, timeline } = c);
+}
+useContent(base);
+export { base };
 
 export const SITE = "https://www.pablo.one";
 const abs = (p) => (p.startsWith("http") ? p : SITE + p);
@@ -79,6 +88,7 @@ function homeMd() {
     "- Background: IT Technician, cloud engineering and event networking",
     "- Certifications: AWS Certified Solutions Architect – Professional (Nov 2024) and – Associate (May 2023)",
     "- Awards: Medallion for Excellence in Cloud Computing at WorldSkills Lyon 2024; 2nd place at SwissSkills 2023",
+    "- Final apprenticeship project (IPA, 2025): AWS hybrid cloud connectivity with a redundant Site-to-Site VPN and BGP",
     "- Event networks: UEFA Conference League Finals 2022 (Tirana) and 2024 (Athens), UEFA Champions League Finals 2023 (Istanbul) and 2025 (Munich), UEFA Conference League Final 2025 (Wrocław), Eurovision Song Contest 2025 (Basel), Openair Frauenfeld 2023, 2024, 2025 and 2026",
     ...stats.map((s) => `- ${s.value}${s.suffix} ${s.label.toLowerCase()}`),
     "",
@@ -158,6 +168,7 @@ function projectMd(p) {
     if (s.bullets) out.push("");
   }
   if (p.video) out.push("## Video", "", `[Best of WorldSkills Lyon 2024 on YouTube](https://www.youtube.com/watch?v=${p.video})`, "");
+  if (p.pdf) out.push("## Documentation", "", `[${p.title} (PDF, ${p.pdf.pages} pages)](${abs(p.pdf.src)})`, "");
   if (p.links.length) out.push("## Links", "", ...p.links.map((l) => `- [${l.label}](${l.href})`), "");
   if (p.gallery.length) out.push("## Image gallery", "", ...p.gallery.map((g) => `![${g.alt}](${abs(g.src)})`), "");
   if (p.gallery.length || p.coverCredit) out.push(`${p.gallery.length ? `Photos by ${profile.name}.` : ""}${p.coverCredit ? ` Title image by [${p.coverCredit.label}](${p.coverCredit.href}).` : ""}`, "");
@@ -286,6 +297,8 @@ export function llmsTxt(list) {
     `> ${DESCRIPTION}`,
     "",
     "Every page of this site has a Markdown twin: append `.md` to a project or certification path (for example /projects/worldskills.md), or use the links below. The HTML pages are a JavaScript app; prefer the Markdown files.",
+    "",
+    `The HTML site is also available in German (${SITE}/de/), French (${SITE}/fr/) and Italian (${SITE}/it/). The Markdown files are English only.`,
     "",
     "## Main",
     "",

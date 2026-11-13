@@ -13,6 +13,8 @@ const write = (p, text) => {
   writeFileSync(f, text);
 };
 
+const LANGS = ["en", "de", "fr", "it"];
+const pre = (l) => (l === "en" ? "" : `/${l}`);
 const list = pages();
 for (const p of list) write(p.md, p.body);
 
@@ -23,10 +25,16 @@ const today = new Date().toISOString().slice(0, 10);
 write(
   "sitemap.xml",
   `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${list
   .filter((p) => p.sitemap !== false)
-  .map((p) => `  <url><loc>${SITE}${p.path}</loc><lastmod>${today}</lastmod><priority>${p.priority}</priority></url>`)
+  .flatMap((p) => {
+    // every page exists in English (/), German (/de), French (/fr) and Italian (/it)
+    const alt = [...LANGS.map((l) => [l, l]), ["x-default", "en"]]
+      .map(([hl, l]) => `<xhtml:link rel="alternate" hreflang="${hl}" href="${SITE}${pre(l)}${p.path}"/>`)
+      .join("");
+    return LANGS.map((l) => `  <url><loc>${SITE}${pre(l)}${p.path}</loc><lastmod>${today}</lastmod><priority>${p.priority}</priority>${alt}</url>`);
+  })
   .join("\n")}
 </urlset>
 `,

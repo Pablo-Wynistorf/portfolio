@@ -6,6 +6,7 @@ import { Lightbox } from "@/components/Lightbox";
 import { projects } from "@/data/content";
 import NotFound from "./NotFound";
 import { useSeo } from "@/lib/seo";
+import { t } from "@/i18n/t";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -19,7 +20,7 @@ export default function ProjectPage() {
   const [open, setOpen] = useState<number | null>(null);
 
   useSeo({
-    title: p ? `${p.title} · Pablo Wynistorf` : "Not found · Pablo Wynistorf",
+    title: p ? `${p.title} · Pablo Wynistorf` : `${t.seo.notFound} · Pablo Wynistorf`,
     description: p ? `${p.short} ${p.location}, ${p.year}.` : undefined,
     path: `/projects/${slug}`,
   });
@@ -27,10 +28,10 @@ export default function ProjectPage() {
   if (!p) return <NotFound />;
   const next = projects[(idx + 1) % projects.length];
   const meta = [
-    { k: "Year", v: p.year },
-    { k: "Location", v: p.location },
-    { k: "Type", v: p.category },
-    { k: "Tags", v: p.tags.join(", ") },
+    { k: t.project.year, v: p.year },
+    { k: t.project.location, v: p.location },
+    { k: t.project.type, v: p.category },
+    { k: t.project.tags, v: p.tags.join(", ") },
   ];
 
   return (
@@ -38,10 +39,10 @@ export default function ProjectPage() {
       <header className="px-5 md:px-8">
         <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider">
           <Link to="/#work" className="hover:text-red">
-            ← Index
+            {t.project.index}
           </Link>
           <Link to={`/md/projects/${p.slug}`} className="hover:text-red">
-            View as Markdown
+            {t.project.viewMd}
           </Link>
         </div>
         <h1 className="mt-10 font-wide text-[11vw] font-black uppercase leading-[0.85] tracking-[-0.03em] md:text-[8vw]">
@@ -115,7 +116,7 @@ export default function ProjectPage() {
         {p.video && (
           <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
             <Label n="▶" className="md:col-span-3">
-              Best of WorldSkills Lyon 2024
+              {t.project.video}
             </Label>
             <FadeIn className="md:col-span-8 md:col-start-5">
               <div className="aspect-video bg-ink">
@@ -132,10 +133,33 @@ export default function ProjectPage() {
           </section>
         )}
 
+        {p.pdf && (
+          <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
+            <Label n="PDF" className="md:col-span-3">
+              {t.project.document}
+            </Label>
+            <FadeIn className="md:col-span-8 md:col-start-5">
+              <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3 font-mono text-[11px] uppercase tracking-wider">
+                <span className="text-muted">
+                  {p.pdf.pages} {t.project.pages} · {p.pdf.lang.toUpperCase()}
+                </span>
+                <a href={p.pdf.src} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-red">
+                  {t.project.openPdf} ↗
+                </a>
+              </div>
+              <object data={p.pdf.src} type="application/pdf" className="h-[80vh] w-full border border-ink bg-white">
+                <a href={p.pdf.src} className="block p-6 underline">
+                  {t.project.openPdf}
+                </a>
+              </object>
+            </FadeIn>
+          </section>
+        )}
+
         {p.links.length > 0 && (
         <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
           <Label n="↗" className="md:col-span-3">
-            Links
+            {t.project.links}
           </Label>
           <ul className="md:col-span-8 md:col-start-5">
             {p.links.map((l) => (
@@ -153,7 +177,7 @@ export default function ProjectPage() {
         <section className="border-t border-ink pt-12">
           {p.gallery.length > 0 && (
             <Label n="✱" className="mb-8">
-              Image gallery · {p.gallery.length}
+              {t.project.gallery} · {p.gallery.length}
             </Label>
           )}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
@@ -175,10 +199,10 @@ export default function ProjectPage() {
             ))}
           </div>
           <p className="mt-10 font-mono text-[10px] uppercase text-muted">
-            Photos by Pablo Wynistorf
+            {t.project.photosBy}
             {p.coverCredit && (
               <>
-                {" "}· Title image by{" "}
+                {" "}· {t.project.titleImageBy}{" "}
                 <a href={p.coverCredit.href} target="_blank" rel="noreferrer" className="underline hover:text-ink">
                   {p.coverCredit.label}
                 </a>
@@ -189,7 +213,7 @@ export default function ProjectPage() {
       </div>
 
       <Link to={`/projects/${next.slug}`} className="group block bg-ink px-5 py-16 text-paper md:px-8 md:py-24">
-        <div className="font-mono text-[11px] uppercase tracking-wider text-paper/60">Next project →</div>
+        <div className="font-mono text-[11px] uppercase tracking-wider text-paper/60">{t.project.next}</div>
         <div className="mt-4 font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight transition-colors group-hover:text-red md:text-8xl">
           {next.title}
         </div>

@@ -14,6 +14,7 @@ import {
   type SearchResult,
 } from "@/lib/chatApi";
 import { profile } from "@/data/content";
+import { t } from "@/i18n/t";
 import { cn } from "@/lib/utils";
 
 const STORE = "pablo.one.chat";
@@ -23,17 +24,6 @@ const OPEN_EVENT = "pablo:open-chat";
 export function openChat(question?: string) {
   window.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: question }));
 }
-
-const SUGGESTIONS = [
-  { q: "Who are you?", label: "Who are you?" },
-  { q: "What AWS certifications do you have?", label: "My certifications" },
-  { q: "Tell me about your WorldSkills experience", label: "WorldSkills Lyon 2024" },
-  { q: "What festival projects have you worked on?", label: "Event networks" },
-  { q: "How does this chat actually work?", label: "How this chat works" },
-  { q: "What does it cost you to run this?", label: "What it costs to run" },
-];
-
-const UNREACHABLE = `I can't reach my chat backend from this page right now. You can still talk to me at chat.pablo.one.`;
 
 function load(): Message[] {
   try {
@@ -110,9 +100,9 @@ export function ChatWidget() {
     setMessages([{ role: "assistant", content: "", pending: true }]);
     try {
       const text = await streamGreeting((t) => setMessages([{ role: "assistant", content: t, pending: true }]));
-      setMessages([{ role: "assistant", content: text.trim() || `Hi, I'm ${profile.firstName}. Ask me anything about my work.` }]);
+      setMessages([{ role: "assistant", content: text.trim() || t.chat.greet }]);
     } catch {
-      setMessages([{ role: "assistant", content: `Hi, I'm ${profile.firstName}! Ask me about my projects, certifications or WorldSkills.` }]);
+      setMessages([{ role: "assistant", content: t.chat.greetFallback }]);
     }
   }, []);
 
@@ -134,7 +124,7 @@ export function ChatWidget() {
         });
       } catch (e) {
         if ((e as Error).name === "AbortError") return;
-        const msg = isNetworkError(e) ? UNREACHABLE : (e as Error).message;
+        const msg = isNetworkError(e) ? t.chat.unreachable : (e as Error).message;
         setMessages([...history, { role: "assistant", content: msg, error: true }]);
       } finally {
         setBusy(false);
@@ -153,7 +143,7 @@ export function ChatWidget() {
     try {
       setResults(await search(q));
     } catch (e) {
-      setSearchError(isNetworkError(e) ? UNREACHABLE : (e as Error).message);
+      setSearchError(isNetworkError(e) ? t.chat.unreachable : (e as Error).message);
     } finally {
       setBusy(false);
     }
@@ -220,7 +210,7 @@ export function ChatWidget() {
       {/* launcher */}
       <motion.button
         onClick={() => setOpen((o) => !o)}
-        aria-label={open ? "Close chat" : "Chat with Pablo"}
+        aria-label={open ? t.chat.close : t.chat.open}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
@@ -241,10 +231,10 @@ export function ChatWidget() {
             transition={{ duration: 0.2 }}
             className="relative"
           >
-            {open ? "Close" : (
+            {open ? t.chat.closeShort : (
               <>
-                <span className="md:hidden">Ask AI</span>
-                <span className="hidden md:inline">Ask AI Pablo</span>
+                <span className="md:hidden">{t.chat.askShort}</span>
+                <span className="hidden md:inline">{t.chat.askLong}</span>
               </>
             )}
           </motion.span>
@@ -255,7 +245,7 @@ export function ChatWidget() {
         {open && (
           <motion.div
             role="dialog"
-            aria-label="Chat with Pablo"
+            aria-label={t.chat.open}
             initial={{ opacity: 0, y: 40, scale: 0.9, filter: "blur(10px)" }}
             animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 40, scale: 0.9, filter: "blur(10px)" }}
@@ -271,20 +261,20 @@ export function ChatWidget() {
                 <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-ink bg-red" />
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-semibold">Chat with me</div>
-                <div className="truncate font-mono text-[10px] uppercase tracking-wider text-paper/50">AI Pablo · portfolio, GitHub, LinkedIn</div>
+                <div className="text-sm font-semibold">{t.chat.title}</div>
+                <div className="truncate font-mono text-[10px] uppercase tracking-wider text-paper/50">{t.chat.subtitle}</div>
               </div>
               <button
                 onClick={reset}
-                title="New chat"
-                aria-label="Start a new chat"
+                title={t.chat.newChat}
+                aria-label={t.chat.newChatLabel}
                 className="p-2 text-paper/60 transition hover:text-paper"
               >
                 <Plus className="h-4 w-4" />
               </button>
               <button
                 onClick={() => setOpen(false)}
-                aria-label="Close chat"
+                aria-label={t.chat.close}
                 className="p-2 text-paper/60 transition hover:text-paper"
               >
                 <X className="h-4 w-4" />
@@ -306,7 +296,7 @@ export function ChatWidget() {
                     <motion.span layoutId="chat-mode" className="absolute inset-0 rounded-full bg-ink" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
                   )}
                   <span className="relative flex items-center gap-1.5">
-                    {m === "chat" ? "Ask" : "Search"}
+                    {m === "chat" ? t.chat.modeAsk : t.chat.modeSearch}
                   </span>
                 </button>
               ))}
@@ -344,7 +334,7 @@ export function ChatWidget() {
                         )}
                         {m.error && (
                           <a href={CHAT_SITE} target="_blank" rel="noreferrer" className="mt-2 inline-flex items-center gap-1 font-mono text-[11px] uppercase text-ink underline underline-offset-4 hover:text-red">
-                            Open chat.pablo.one <ExternalLink className="h-3 w-3" />
+                            {t.chat.openSite} <ExternalLink className="h-3 w-3" />
                           </a>
                         )}
                         {!m.pending && m.sources && m.sources.length > 0 && (
@@ -364,7 +354,7 @@ export function ChatWidget() {
                       variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } } }}
                       className="grid grid-cols-2 gap-2 pt-2"
                     >
-                      {SUGGESTIONS.map((s) => (
+                      {t.chat.suggestions.map((s) => (
                         <motion.button
                           key={s.q}
                           variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
@@ -382,12 +372,12 @@ export function ChatWidget() {
                 <div className="space-y-2">
                   {!results && !busy && !searchError && (
                     <p className="pt-6 text-center text-sm text-muted">
-                      Semantic search across my portfolio, GitHub and LinkedIn.
+                      {t.chat.searchHint}
                     </p>
                   )}
                   {busy && <Loader2 className="mx-auto mt-6 h-5 w-5 animate-spin text-red" />}
                   {searchError && <p className="border-l-2 border-red pl-3 text-sm text-red">{searchError}</p>}
-                  {results?.length === 0 && <p className="pt-6 text-center text-sm text-muted">Nothing found.</p>}
+                  {results?.length === 0 && <p className="pt-6 text-center text-sm text-muted">{t.chat.nothing}</p>}
                   {results?.map((r, i) => {
                     const to = internal(r.url);
                     const body = (
@@ -438,21 +428,21 @@ export function ChatWidget() {
                       submit();
                     }
                   }}
-                  placeholder={mode === "chat" ? "Ask me anything…" : "Search my work…"}
-                  aria-label={mode === "chat" ? "Your message" : "Search query"}
+                  placeholder={mode === "chat" ? t.chat.placeholderChat : t.chat.placeholderSearch}
+                  aria-label={mode === "chat" ? t.chat.labelChat : t.chat.labelSearch}
                   className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-2.5 py-2 text-base text-ink md:text-sm placeholder:text-muted focus:outline-none focus-visible:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={busy || !input.trim() || over}
-                  aria-label="Send"
+                  aria-label={t.chat.send}
                   className="flex h-10 w-10 shrink-0 items-center justify-center bg-ink text-paper transition hover:bg-red disabled:opacity-30"
                 >
                   {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : mode === "chat" ? <ArrowUp className="h-4 w-4" /> : <Search className="h-4 w-4" />}
                 </button>
               </div>
               <div className="mt-1.5 flex justify-between px-1 font-mono text-[10px] uppercase text-muted">
-                <span>An AI answering as Pablo. It may be imperfect.</span>
+                <span>{t.chat.disclaimer}</span>
                 {input.length > MAX_CHARS - 200 && (
                   <span className={over ? "text-red" : ""}>{MAX_CHARS - input.length}</span>
                 )}

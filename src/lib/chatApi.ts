@@ -1,6 +1,7 @@
 // Client for the chat.pablo.one backend (Next.js API on Lambda + Bedrock).
 // Endpoints: GET /api/greeting, POST /api/chat, POST /api/search.
 import { countVisit } from "./visits";
+import { t } from "@/i18n/t";
 
 export const CHAT_API = (import.meta.env.VITE_CHAT_API as string | undefined) ?? "https://chat.pablo.one";
 export const CHAT_SITE = "https://chat.pablo.one";
@@ -66,7 +67,7 @@ function greetingParams(total: number | null) {
   };
   try {
     set("tz", Intl.DateTimeFormat().resolvedOptions().timeZone);
-    set("lang", navigator.language);
+    set("lang", t.locale);
     set("cores", navigator.hardwareConcurrency);
     set("mem", (navigator as Navigator & { deviceMemory?: number }).deviceMemory);
     set("sw", screen.width);
@@ -102,13 +103,8 @@ export async function streamChat(
   const messages = history
     .filter((m) => !m.error && !m.pending)
     .map(({ role, content, blocked }) => ({ role, content, ...(blocked ? { blocked } : {}) }));
-  let lang = "";
-  try {
-    lang = `?lang=${encodeURIComponent(navigator.language)}`;
-  } catch {
-    /* ignore */
-  }
-  const res = await fetch(`${CHAT_API}/api/chat${lang}`, {
+  // answer in the language of the page the visitor reads
+  const res = await fetch(`${CHAT_API}/api/chat?lang=${encodeURIComponent(t.locale)}`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ messages }),
@@ -123,8 +119,7 @@ export async function streamChat(
   if (text.includes(BLOCKED)) {
     return {
       role: "assistant",
-      content:
-        "That one's outside what I can help with here. Ask me about my work, my projects, my certifications, or the events I've worked on.",
+      content: t.chat.blocked,
       blocked: true,
     };
   }

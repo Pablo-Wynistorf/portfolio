@@ -2,9 +2,10 @@ import { useState } from "react";
 import { Magnetic, Reveal } from "@/components/motion";
 import { openChat } from "@/components/chat/ChatWidget";
 import { profile } from "@/data/content";
+import { t } from "@/i18n/t";
 
-const links = [
-  { label: "E-Mail", href: `mailto:${profile.email}` },
+const links = () => [
+  { label: t.contact.email, href: `mailto:${profile.email}` },
   { label: "GitHub", href: profile.github },
   { label: "LinkedIn", href: profile.linkedin },
 ];
@@ -14,19 +15,18 @@ export function Contact() {
   return (
     <section id="contact" className="bg-ink px-5 pb-10 pt-24 text-paper md:px-8 md:pt-36">
       <div className="mb-12 flex items-baseline gap-3 font-mono text-xs uppercase tracking-wider">
-        <span className="text-red">(05)</span> Contact
+        <span className="text-red">(05)</span> {t.contact.label}
       </div>
 
       <Reveal
         as="h2"
-        text="Let's talk."
+        text={t.contact.title}
         className="font-wide text-[19vw] font-black uppercase leading-[0.8] tracking-[-0.04em] md:text-[15vw]"
       />
 
       <div className="mt-16 grid gap-12 border-t border-paper/20 pt-10 md:grid-cols-12">
         <p className="text-lg leading-relaxed text-paper/70 md:col-span-5">
-          Do you have a question, a suggestion, or just want to say hello? I'd love to hear from you. Send me an e-mail
-          and I'll get back to you as soon as possible. Your thoughts and feedback are always welcome.
+          {t.contact.text}
         </p>
         <div className="md:col-span-6 md:col-start-7">
           <div className="flex flex-wrap items-center gap-4">
@@ -41,11 +41,11 @@ export function Contact() {
               }}
               className="font-mono text-xs uppercase text-paper/60 hover:text-paper"
             >
-              {copied ? "Copied ✓" : "Copy"}
+              {copied ? t.contact.copied : t.contact.copy}
             </button>
           </div>
           <div className="mt-10 flex flex-wrap gap-3">
-            {links.map((l) => (
+            {links().map((l) => (
               <Magnetic key={l.label} strength={0.25}>
                 <a
                   href={l.href}
@@ -62,7 +62,7 @@ export function Contact() {
                 onClick={() => openChat()}
                 className="inline-block rounded-full bg-red px-6 py-3 text-sm font-medium text-paper transition-colors hover:bg-paper hover:text-ink"
               >
-                Ask AI Pablo
+                {t.nav.askAi}
               </button>
             </Magnetic>
           </div>

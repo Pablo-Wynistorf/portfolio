@@ -4,6 +4,7 @@ import { mdFor } from "@/lib/seo";
 import { Clock } from "@/components/Clock";
 import { profile } from "@/data/content";
 import { countVisit } from "@/lib/visits";
+import { t } from "@/i18n/t";
 
 export function Footer() {
   const [count, setCount] = useState<number | null>(null);
@@ -17,7 +18,7 @@ export function Footer() {
     <footer className="bg-ink px-5 pb-6 pt-4 text-paper md:px-8">
       <div className="mb-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] uppercase tracking-wider text-paper/60">
         <Link to={md === "/index.md" ? "/md" : `/md${md.replace(/\.md$/, "")}`} className="hover:text-paper">
-          This page as Markdown
+          {t.footer.pageMd}
         </Link>
         <a href="/llms.txt" className="hover:text-paper">
           llms.txt
@@ -26,21 +27,21 @@ export function Footer() {
           llms-full.txt
         </a>
         <a href="/sitemap.xml" className="hover:text-paper">
-          Sitemap
+          {t.footer.sitemap}
         </a>
       </div>
       <div className="grid grid-cols-2 gap-y-3 border-t border-paper/20 pt-4 font-mono text-[11px] uppercase tracking-wider text-paper/60 md:grid-cols-4">
         <span>
           © {profile.since}–{new Date().getFullYear()} {profile.name}
         </span>
-        <span>Licensed under {profile.name}</span>
+        <span>{t.footer.licensed} {profile.name}</span>
         <span>
           {count && count > 0 ? (
             <>
-              Visitors <span className="text-paper">{count.toLocaleString("de-CH")}</span>
+              {t.footer.visitors} <span className="text-paper">{count.toLocaleString("de-CH")}</span>
             </>
           ) : (
-            "Visitor count unavailable"
+            t.footer.visitorsNA
           )}
         </span>
         <span className="md:text-right">
