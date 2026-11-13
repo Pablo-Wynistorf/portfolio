@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* The site has one light theme; dark: utilities only apply under an explicit .dark class. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /*
  * Design system: Swiss editorial.
  * Paper + ink, one accent (Swiss red), hairline rules, square corners.
