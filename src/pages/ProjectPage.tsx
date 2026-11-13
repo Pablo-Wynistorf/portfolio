@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { motion, useScroll, useTransform } from "motion/react";
 import { FadeIn, Label } from "@/components/motion";
 import { Lightbox } from "@/components/Lightbox";
 import { projects } from "@/data/content";
 import NotFound from "./NotFound";
+import { useSeo } from "@/lib/seo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -17,9 +18,11 @@ export default function ProjectPage() {
   const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const [open, setOpen] = useState<number | null>(null);
 
-  useEffect(() => {
-    if (p) document.title = `${p.title} · Pablo Wynistorf`;
-  }, [p]);
+  useSeo({
+    title: p ? `${p.title} · Pablo Wynistorf` : "Not found · Pablo Wynistorf",
+    description: p ? `${p.short} ${p.location}, ${p.year}.` : undefined,
+    path: `/projects/${slug}`,
+  });
 
   if (!p) return <NotFound />;
   const next = projects[(idx + 1) % projects.length];
@@ -33,9 +36,14 @@ export default function ProjectPage() {
   return (
     <article className="pt-24">
       <header className="px-5 md:px-8">
-        <Link to="/#work" className="font-mono text-[11px] uppercase tracking-wider hover:text-red">
-          ← Index
-        </Link>
+        <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider">
+          <Link to="/#work" className="hover:text-red">
+            ← Index
+          </Link>
+          <Link to={`/md/projects/${p.slug}`} className="hover:text-red">
+            View as Markdown
+          </Link>
+        </div>
         <h1 className="mt-10 font-wide text-[11vw] font-black uppercase leading-[0.85] tracking-[-0.03em] md:text-[8vw]">
           {p.title.split(" ").map((w, i) => (
             <span key={i} className="inline-block overflow-hidden align-top">

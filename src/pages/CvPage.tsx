@@ -1,11 +1,13 @@
-import { useEffect } from "react";
 import { FadeIn, Reveal } from "@/components/motion";
 import { profile } from "@/data/content";
+import { useSeo } from "@/lib/seo";
 
 export default function CvPage() {
-  useEffect(() => {
-    document.title = "Curriculum vitae · Pablo Wynistorf";
-  }, []);
+  useSeo({
+    title: "Curriculum vitae · Pablo Wynistorf",
+    description: "Curriculum vitae of Pablo Wynistorf, Technical Account Manager at AWS. Download the PDF.",
+    path: "/p/cv",
+  });
   return (
     <section className="px-5 pb-24 pt-24 md:px-8">
       <div className="font-mono text-[11px] uppercase tracking-wider">

@@ -1,16 +1,18 @@
-import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { FadeIn, Label, Reveal } from "@/components/motion";
 import { certifications } from "@/data/content";
 import NotFound from "./NotFound";
+import { useSeo } from "@/lib/seo";
 
 export default function CertificationPage() {
   const { slug } = useParams();
   const c = certifications.find((x) => x.slug === slug);
 
-  useEffect(() => {
-    if (c) document.title = `${c.title} · Pablo Wynistorf`;
-  }, [c]);
+  useSeo({
+    title: c ? `${c.title} · Pablo Wynistorf` : "Not found · Pablo Wynistorf",
+    description: c ? `${c.title}, ${c.issuer}, ${c.achieved}.` : undefined,
+    path: `/certifications/${slug}`,
+  });
 
   if (!c) return <NotFound />;
   const isMedal = c.slug === "worldskills";
@@ -18,9 +20,14 @@ export default function CertificationPage() {
 
   return (
     <article className="px-5 pb-24 pt-24 md:px-8">
-      <Link to="/#certifications" className="font-mono text-[11px] uppercase tracking-wider hover:text-red">
-        ← Certifications
-      </Link>
+      <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider">
+        <Link to="/#certifications" className="hover:text-red">
+          ← Certifications
+        </Link>
+        <Link to={`/md/certifications/${c.slug}`} className="hover:text-red">
+          View as Markdown
+        </Link>
+      </div>
 
       <Reveal
         as="h1"

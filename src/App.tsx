@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router";
 import { AnimatePresence, MotionConfig, motion } from "motion/react";
 import { Nav } from "@/components/Nav";
@@ -6,10 +6,11 @@ import { Footer } from "@/components/Footer";
 import { Intro } from "@/components/Intro";
 import { ChatWidget } from "@/components/chat/ChatWidget";
 import Home from "@/pages/Home";
-import ProjectPage from "@/pages/ProjectPage";
-import CertificationPage from "@/pages/CertificationPage";
-import CvPage from "@/pages/CvPage";
+const ProjectPage = lazy(() => import("@/pages/ProjectPage"));
+const CertificationPage = lazy(() => import("@/pages/CertificationPage"));
+const CvPage = lazy(() => import("@/pages/CvPage"));
 import NotFound from "@/pages/NotFound";
+const MdViewer = lazy(() => import("@/pages/MdViewer"));
 
 function ScrollManager() {
   const { pathname, hash } = useLocation();
@@ -55,11 +56,12 @@ export default function App() {
       <ScrollManager />
       <Nav />
       <AnimatePresence mode="wait" initial={false}>
-        <Routes location={location} key={location.pathname}>
+        <Routes location={location} key={location.pathname.startsWith("/md") ? "/md" : location.pathname}>
           <Route path="/" element={<Page><Home /></Page>} />
-          <Route path="/projects/:slug" element={<Page><ProjectPage /></Page>} />
-          <Route path="/certifications/:slug" element={<Page><CertificationPage /></Page>} />
-          <Route path="/p/cv" element={<Page><CvPage /></Page>} />
+          <Route path="/projects/:slug" element={<Page><Suspense fallback={<div className="min-h-screen" />}><ProjectPage /></Suspense></Page>} />
+          <Route path="/certifications/:slug" element={<Page><Suspense fallback={<div className="min-h-screen" />}><CertificationPage /></Suspense></Page>} />
+          <Route path="/p/cv" element={<Page><Suspense fallback={<div className="min-h-screen" />}><CvPage /></Suspense></Page>} />
+          <Route path="/md/*" element={<Page><Suspense fallback={<div className="min-h-screen" />}><MdViewer /></Suspense></Page>} />
           {/* Legacy Hugo URLs */}
           <Route path="/p/about-me" element={<Navigate to="/#about" replace />} />
           <Route path="/projects" element={<Navigate to="/#work" replace />} />

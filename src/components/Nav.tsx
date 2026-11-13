@@ -13,6 +13,7 @@ const links = [
   { to: "/#certifications", label: "Certifications" },
   { to: "/p/cv", label: "CV" },
   { to: "/#contact", label: "Contact" },
+  { to: "/md", label: "MD" },
 ];
 
 function RollLink({ to, label, onClick }: { to: string; label: string; onClick?: () => void }) {
