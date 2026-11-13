@@ -49,22 +49,26 @@ export function Journey() {
                         </span>
                         <span className="mt-1 block text-muted">{t.text}</span>
                       </span>
-                      <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                        ↗
-                      </span>
+                      {(t.to || t.href) && (
+                        <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                          ↗
+                        </span>
+                      )}
                     </>
                   );
                   const cls = "group flex items-baseline gap-5 border-b border-ink/20 py-5";
                   return (
                     <FadeIn as="li" key={t.title} delay={i * 0.05} y={16}>
-                        {"to" in t && t.to ? (
+                        {t.to ? (
                           <Link to={t.to} className={cls}>
                             {inner}
                           </Link>
-                        ) : (
-                          <a href={(t as { href: string }).href} target="_blank" rel="noreferrer" className={cls}>
+                        ) : t.href ? (
+                          <a href={t.href} target="_blank" rel="noreferrer" className={cls}>
                             {inner}
                           </a>
+                        ) : (
+                          <div className={cls.replace("group ", "")}>{inner}</div>
                         )}
                     </FadeIn>
                   );

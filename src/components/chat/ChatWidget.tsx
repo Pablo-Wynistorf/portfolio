@@ -215,7 +215,7 @@ export function ChatWidget() {
         transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-5 right-5 z-[70] flex h-12 items-center gap-2 rounded-full bg-ink pl-4 pr-5 text-sm font-medium text-paper shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-colors hover:bg-red md:bottom-6 md:right-8"
+        className="fixed bottom-4 right-4 z-[70] flex h-11 items-center gap-2 rounded-full bg-ink pl-4 pr-4 text-sm font-medium md:h-12 md:pr-5 text-paper shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-colors hover:bg-red md:bottom-6 md:right-8"
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red opacity-75 [animation-duration:2s]" />
@@ -230,7 +230,12 @@ export function ChatWidget() {
             transition={{ duration: 0.2 }}
             className="relative"
           >
-            {open ? "Close" : "Ask AI Pablo"}
+            {open ? "Close" : (
+              <>
+                <span className="md:hidden">Ask AI</span>
+                <span className="hidden md:inline">Ask AI Pablo</span>
+              </>
+            )}
           </motion.span>
         </AnimatePresence>
       </motion.button>
