@@ -5,13 +5,14 @@ import { Journey } from "@/components/sections/Journey";
 import { Projects } from "@/components/sections/Projects";
 import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
+import { Company } from "@/components/sections/Company";
 import { useSeo } from "@/lib/seo";
 
 export default function Home() {
   useSeo({
     title: "Pablo Wynistorf · Technical Account Manager at AWS",
     description:
-      "Pablo Wynistorf: Technical Account Manager at AWS, AWS Certified Solutions Architect – Professional, WorldSkills 2024 Medallion for Excellence in Cloud Computing, and network builder for UEFA finals and Openair Frauenfeld.",
+      "Pablo Wynistorf: Technical Account Manager at AWS, founder of Nextenic GmbH, AWS Certified Solutions Architect – Professional, WorldSkills 2024 Medallion for Excellence in Cloud Computing, and network builder for UEFA finals and Openair Frauenfeld.",
     path: "/",
   });
   return (
@@ -20,6 +21,7 @@ export default function Home() {
       <Skills />
       <About />
       <Projects />
+      <Company />
       <Journey />
       <Certifications />
       <Contact />

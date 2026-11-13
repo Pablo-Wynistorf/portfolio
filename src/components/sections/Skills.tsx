@@ -22,7 +22,7 @@ export function Skills() {
           <FadeIn
             key={s.label}
             delay={i * 0.06}
-            className="border-ink px-5 py-10 odd:border-r md:border-r md:px-8 md:last:border-r-0 [&:nth-child(n+3)]:border-t md:[&:nth-child(n+3)]:border-t-0"
+            className="border-ink px-5 py-10 odd:border-r last:col-span-2 last:border-r-0! md:border-r md:px-8 md:last:col-span-1 [&:nth-child(n+3)]:border-t md:[&:nth-child(n+3)]:border-t-0"
           >
             <div className="font-wide text-6xl font-black tracking-tighter md:text-7xl">
               <NumberTicker value={s.value} className="text-ink" />

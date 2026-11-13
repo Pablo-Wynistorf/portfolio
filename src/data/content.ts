@@ -95,6 +95,31 @@ export const skills = [
   "Payment Networks",
 ];
 
+export const company = {
+  name: "Nextenic GmbH",
+  url: "https://www.nextenic.com",
+  founded: "October 2026",
+  place: "Bern, Switzerland",
+  summary:
+    "I founded Nextenic GmbH, a software company in Bern. It builds and runs two products, MailRift and Swiss Shipping Labels, which I built.",
+  products: [
+    {
+      name: "MailRift",
+      url: "https://mailrift.io",
+      kind: "Email hosting",
+      text: "Email hosting on your own domain, priced per domain instead of per user. Webmail, calendar, contacts, iOS and Android apps, inbound routing, plus a REST API, MCP server and webhooks for developers. Runs on AWS in Frankfurt.",
+      tags: ["AWS", "Email", "REST API", "MCP"],
+    },
+    {
+      name: "Swiss Shipping Labels",
+      url: "https://swiss-shipping-labels.ch",
+      kind: "Shopify app",
+      text: "A Shopify app that creates Swiss Post labels and digital stamps straight from orders, single or in bulk, with address checks, customs forms and tracking. Uses the merchant's own Swiss Post franking licence.",
+      tags: ["Shopify", "Swiss Post API", "Logistics"],
+    },
+  ],
+};
+
 export type Section = { heading: string; body?: string[]; bullets?: { label?: string; text: string }[] };
 
 export type Project = {
@@ -494,6 +519,22 @@ export const timeline: { year: string; title: string; text: string; to?: string;
     title: "AWS Solutions Architect – Professional",
     text: "The professional-level AWS architecture certification.",
     to: "/certifications/aws-certified-solutions-architect-professional",
+  },
+  {
+    year: "2025",
+    title: "Openair Frauenfeld",
+    text: "Back in the networking team for the festival.",
+  },
+  {
+    year: "2026",
+    title: "Openair Frauenfeld",
+    text: "Networking for the festival, for the fourth year in a row.",
+  },
+  {
+    year: "2026",
+    title: "Founded Nextenic GmbH",
+    text: "A software company in Bern, with MailRift and Swiss Shipping Labels, both built by me.",
+    href: "https://www.nextenic.com",
   },
   {
     year: "Now",

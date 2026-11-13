@@ -2,14 +2,14 @@
 // JSON-LD. Used by gen-md.mjs (writes public/*.md, llms.txt, sitemap, robots)
 // and postbuild.mjs (prerenders HTML for crawlers and AI agents).
 // Reads src/data/content.ts directly (Node strips the TypeScript types).
-import { about, certifications, profile, projects, skills, stats, timeline } from "../src/data/content.ts";
+import { about, certifications, company, profile, projects, skills, stats, timeline } from "../src/data/content.ts";
 
 export const SITE = "https://www.pablo.one";
 const abs = (p) => (p.startsWith("http") ? p : SITE + p);
 const mdUrl = (p) => SITE + p;
 
 const DESCRIPTION =
-  "Pablo Wynistorf: Technical Account Manager at AWS, AWS Certified Solutions Architect – Professional, WorldSkills 2024 Medallion for Excellence in Cloud Computing, and network builder for UEFA finals and Openair Frauenfeld.";
+  "Pablo Wynistorf: Technical Account Manager at AWS, founder of Nextenic GmbH, AWS Certified Solutions Architect – Professional, WorldSkills 2024 Medallion for Excellence in Cloud Computing, and network builder for UEFA finals and Openair Frauenfeld.";
 
 const person = {
   "@type": "Person",
@@ -22,6 +22,7 @@ const person = {
   email: `mailto:${profile.email}`,
   jobTitle: "Technical Account Manager",
   worksFor: { "@type": "Organization", name: "Amazon Web Services", url: "https://aws.amazon.com" },
+  founder: { "@type": "Organization", name: company.name, url: company.url, foundingDate: "2026-10", address: { "@type": "PostalAddress", addressLocality: "Bern", addressCountry: "CH" } },
   address: { "@type": "PostalAddress", addressCountry: "CH" },
   nationality: { "@type": "Country", name: "Switzerland" },
   sameAs: [profile.github, profile.linkedin],
@@ -74,10 +75,11 @@ function homeMd() {
     "## At a glance",
     "",
     "- Current role: Technical Account Manager at AWS",
+    `- Founder of [${company.name}](${company.url}) (${company.place}, ${company.founded}); built its products MailRift and Swiss Shipping Labels`,
     "- Background: IT Technician, cloud engineering and event networking",
     "- Certifications: AWS Certified Solutions Architect – Professional (Nov 2024) and – Associate (May 2023)",
     "- Awards: Medallion for Excellence in Cloud Computing at WorldSkills Lyon 2024; 2nd place at SwissSkills 2023",
-    "- Event networks: UEFA Conference League Finals 2022 (Tirana) and 2024 (Athens), UEFA Champions League Final 2023 (Istanbul), Openair Frauenfeld 2023 and 2024",
+    "- Event networks: UEFA Conference League Finals 2022 (Tirana) and 2024 (Athens), UEFA Champions League Final 2023 (Istanbul), Openair Frauenfeld 2023, 2024, 2025 and 2026",
     ...stats.map((s) => `- ${s.value}${s.suffix} ${s.label.toLowerCase()}`),
     "",
     "## About",
@@ -89,6 +91,14 @@ function homeMd() {
     "## Projects",
     "",
     ...projects.map(projectLine),
+    "- Openair Frauenfeld 2025 and 2026: networking team at the festival",
+    "",
+    `## Company: ${company.name}`,
+    "",
+    company.summary,
+    "",
+    ...company.products.map((p) => `- [${p.name}](${p.url}) (${p.kind}): ${p.text}`),
+    `- Company website: [${company.url}](${company.url})`,
     "",
     "## Certifications and awards",
     "",
