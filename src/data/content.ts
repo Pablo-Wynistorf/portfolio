@@ -16,6 +16,7 @@ export const profile = {
   tagline:
     "I design cloud infrastructure on AWS and build the networks behind Europe's biggest football finals and festivals.",
   avatar: m("avatar/avatar.webp"),
+  heroImage: m("avatar/hero.webp"),
   banner: m("about/pablo-wynistorf.webp"),
   email: "mail@pablo.one",
   github: "https://github.com/Pablo-Wynistorf",

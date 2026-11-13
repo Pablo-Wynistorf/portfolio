@@ -185,9 +185,20 @@ export function ChatWidget() {
     };
   }, [send]);
 
+  // On phones the panel is a full-screen sheet: stop the page behind it from scrolling.
+  useEffect(() => {
+    if (!open || !window.matchMedia("(max-width: 767px)").matches) return;
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
+    return () => {
+      html.style.overflow = prev;
+    };
+  }, [open]);
+
   useEffect(() => {
     if (open && mode === "chat") greet();
-    if (open) setTimeout(() => inputRef.current?.focus(), 250);
+    if (open && window.matchMedia("(pointer: fine)").matches) setTimeout(() => inputRef.current?.focus(), 250);
   }, [open, mode, greet]);
 
   const reset = () => {
@@ -215,7 +226,7 @@ export function ChatWidget() {
         transition={{ delay: 1, type: "spring", stiffness: 200, damping: 15 }}
         whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.92 }}
-        className="fixed bottom-4 right-4 z-[70] flex h-11 items-center gap-2 rounded-full bg-ink pl-4 pr-4 text-sm font-medium md:h-12 md:pr-5 text-paper shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-colors hover:bg-red md:bottom-6 md:right-8"
+        className={cn("fixed bottom-4 right-4 z-[70] h-11", open ? "hidden md:flex" : "flex", " items-center gap-2 rounded-full bg-ink pl-4 pr-4 text-sm font-medium md:h-12 md:pr-5 text-paper shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] transition-colors hover:bg-red md:bottom-6 md:right-8")}
       >
         <span className="relative flex h-2 w-2">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red opacity-75 [animation-duration:2s]" />
@@ -250,11 +261,11 @@ export function ChatWidget() {
             exit={{ opacity: 0, y: 40, scale: 0.9, filter: "blur(10px)" }}
             transition={{ type: "spring", stiffness: 260, damping: 26 }}
             style={{ transformOrigin: "bottom right" }}
-            className="fixed inset-x-3 bottom-20 top-16 z-[70] flex flex-col overflow-hidden border border-ink bg-paper text-ink shadow-[12px_12px_0_0_#121212] md:inset-auto md:bottom-24 md:right-8 md:h-[640px] md:max-h-[calc(100vh-8rem)] md:w-[420px]"
+            className="fixed inset-0 z-[90] flex h-[100dvh] flex-col overflow-hidden bg-paper text-ink md:inset-auto md:z-[70] md:border md:border-ink md:shadow-[12px_12px_0_0_#121212] md:bottom-24 md:right-8 md:h-[640px] md:max-h-[calc(100vh-8rem)] md:w-[420px]"
           >
 
             {/* header */}
-            <div className="flex items-center gap-3 border-b border-ink bg-ink px-4 py-3 text-paper">
+            <div className="flex items-center gap-3 border-b border-ink bg-ink px-4 py-3 pt-[max(0.75rem,env(safe-area-inset-top))] text-paper">
               <div className="relative">
                 <img src={profile.avatar} alt="" className="h-10 w-10 object-cover grayscale" />
                 <span className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-ink bg-red" />
@@ -303,7 +314,7 @@ export function ChatWidget() {
             </div>
 
             {/* body */}
-            <div ref={scroller} className="flex-1 space-y-4 overflow-y-auto px-4 py-4 [scrollbar-width:thin]">
+            <div ref={scroller} className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-4 py-4 [scrollbar-width:thin]">
               {mode === "chat" ? (
                 <>
                   {messages.map((m, i) => (
@@ -413,7 +424,7 @@ export function ChatWidget() {
                 e.preventDefault();
                 submit();
               }}
-              className="border-t border-ink p-3"
+              className="border-t border-ink p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
             >
               <div className="flex items-end gap-2 border border-ink bg-paper p-1.5 focus-within:shadow-[3px_3px_0_0_#e1251b]">
                 <textarea
@@ -429,7 +440,7 @@ export function ChatWidget() {
                   }}
                   placeholder={mode === "chat" ? "Ask me anything…" : "Search my work…"}
                   aria-label={mode === "chat" ? "Your message" : "Search query"}
-                  className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-2.5 py-2 text-sm text-ink placeholder:text-muted focus:outline-none focus-visible:outline-none"
+                  className="max-h-32 min-h-[40px] flex-1 resize-none bg-transparent px-2.5 py-2 text-base text-ink md:text-sm placeholder:text-muted focus:outline-none focus-visible:outline-none"
                 />
                 <button
                   type="submit"

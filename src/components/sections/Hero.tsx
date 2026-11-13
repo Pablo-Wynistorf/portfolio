@@ -104,14 +104,14 @@ export function Hero() {
           initial={{ clipPath: "inset(100% 0 0 0)" }}
           animate={{ clipPath: "inset(0% 0 0 0)" }}
           transition={{ delay: 0.3, duration: 1.4, ease: EASE }}
-          className="relative order-first aspect-[4/3] w-full overflow-hidden bg-paper-2 md:order-none md:col-span-2 md:col-start-11 md:aspect-[4/5]"
+          className="relative order-first aspect-[4/5] w-full overflow-hidden bg-paper-2 md:order-none md:col-span-2 md:col-start-11"
         >
           <motion.img
             style={{ scale: imgScale }}
-            src={profile.avatar}
-            alt={profile.name}
+            src={profile.heroImage}
+            alt={`${profile.name} by the sea`}
             fetchPriority="high"
-            className="h-full w-full object-cover object-[50%_30%] grayscale"
+            className="h-full w-full object-cover object-[50%_70%]"
           />
           <figcaption className="absolute bottom-2 left-2 bg-paper px-1.5 py-0.5 font-mono text-[10px] uppercase">
             Fig. 01 — Pablo
