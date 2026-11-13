@@ -139,6 +139,8 @@ function aboutMd() {
     "",
     about.competition,
     "",
+    about.now,
+    "",
     `Read more: [WorldSkills Lyon 2024](${mdUrl("/projects/worldskills.md")})`,
     "",
     "## Beyond work",
