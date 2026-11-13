@@ -56,6 +56,12 @@ export const about = {
       text: "The careful art of cooking and baking is my creative outlet and a way to relax.",
     },
     {
+      icon: "briefcase",
+      title: "Nextenic GmbH",
+      text: "In my spare time I build and run my own software company, with its products MailRift and Swiss Shipping Labels.",
+      link: { label: "nextenic.com", href: "https://www.nextenic.com" },
+    },
+    {
       icon: "mountain-snow",
       title: "Skiing",
       text: "When winter covers the landscape, I swap the weights for skis and the thrill of snowy slopes.",
@@ -161,6 +167,56 @@ const uefaBullets = (vip: boolean) => [
 ];
 
 export const projects: Project[] = [
+  {
+    slug: "openair-frauenfeld-2026",
+    title: "Openair Frauenfeld 2026",
+    short: "Networking team at the festival, for the fourth year in a row.",
+    location: "Frauenfeld, Switzerland",
+    year: "2026",
+    category: "Event Networking",
+    tags: ["Festival", "Networking", "Infrastructure"],
+    cover: pj("openair-frauenfeld-2024", "openair-frauenfeld-2024"),
+    coverCredit: {
+      label: "baselundregion.ch",
+      href: "https://baselundregion.ch/2023/06/22/von-basel-nach-frauenfeld-das-openair-frauenfeld-vom-06-bis-08-juli-2023/",
+    },
+    coords: [47.5536, 8.8988],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "At Openair Frauenfeld 2026 I was part of the networking team again, working on the festival's network infrastructure as in the years before.",
+        ],
+      },
+    ],
+    gallery: [],
+    links: [],
+  },
+  {
+    slug: "openair-frauenfeld-2025",
+    title: "Openair Frauenfeld 2025",
+    short: "Back in the networking team at the festival.",
+    location: "Frauenfeld, Switzerland",
+    year: "2025",
+    category: "Event Networking",
+    tags: ["Festival", "Networking", "Infrastructure"],
+    cover: pj("openair-frauenfeld-2024", "openair-frauenfeld-2024"),
+    coverCredit: {
+      label: "baselundregion.ch",
+      href: "https://baselundregion.ch/2023/06/22/von-basel-nach-frauenfeld-das-openair-frauenfeld-vom-06-bis-08-juli-2023/",
+    },
+    coords: [47.5536, 8.8988],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "At Openair Frauenfeld 2025 I was part of the networking team again, working on the festival's network infrastructure as in the years before.",
+        ],
+      },
+    ],
+    gallery: [],
+    links: [],
+  },
   {
     slug: "worldskills",
     title: "WorldSkills Lyon 2024",
@@ -525,11 +581,13 @@ export const timeline: { year: string; title: string; text: string; to?: string;
     year: "2025",
     title: "Openair Frauenfeld",
     text: "Back in the networking team for the festival.",
+    to: "/projects/openair-frauenfeld-2025",
   },
   {
     year: "2026",
     title: "Openair Frauenfeld",
     text: "Networking for the festival, for the fourth year in a row.",
+    to: "/projects/openair-frauenfeld-2026",
   },
   {
     year: "2026",

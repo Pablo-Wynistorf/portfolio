@@ -132,6 +132,7 @@ export default function ProjectPage() {
           </section>
         )}
 
+        {p.links.length > 0 && (
         <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
           <Label n="↗" className="md:col-span-3">
             Links
@@ -147,11 +148,14 @@ export default function ProjectPage() {
             ))}
           </ul>
         </section>
+        )}
 
         <section className="border-t border-ink pt-12">
-          <Label n="✱" className="mb-8">
-            Image gallery · {p.gallery.length}
-          </Label>
+          {p.gallery.length > 0 && (
+            <Label n="✱" className="mb-8">
+              Image gallery · {p.gallery.length}
+            </Label>
+          )}
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {p.gallery.map((g, i) => (
               <FadeIn key={g.src} delay={(i % 4) * 0.06} className={i % 5 === 0 ? "col-span-2 row-span-2" : ""}>
