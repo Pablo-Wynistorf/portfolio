@@ -63,7 +63,7 @@ export const about = {
       icon: "waves",
       title: "Swimming in the Aare",
       text: "When the summer sun shines, I swim in the Aare, often with friends.",
-      link: { label: "The Aare", href: "https://www.myswitzerland.com/en-ch/destinations/aare/" },
+      link: { label: "The Aare", href: "https://www.myswitzerland.com/de-ch/erlebnisse/das-berner-leben-an-der-aare/" },
     },
   ],
 };
