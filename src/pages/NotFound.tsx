@@ -1,16 +1,18 @@
 import { Link } from "react-router";
-import { AuroraText } from "@/components/ui/aurora-text";
 
 export default function NotFound() {
   return (
-    <section className="flex min-h-[80vh] flex-col items-center justify-center px-6 text-center">
-      <h1 className="font-display text-[10rem] font-bold leading-none tracking-tighter md:text-[14rem]">
-        <AuroraText colors={["#2dd4bf", "#38bdf8", "#a78bfa", "#f472b6"]}>404</AuroraText>
-      </h1>
-      <p className="mt-4 text-neutral-400">This page took a wrong turn somewhere on the network.</p>
-      <Link to="/" className="mt-8 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-teal-200">
-        Back home
-      </Link>
+    <section className="flex min-h-[85vh] flex-col justify-end px-5 pb-16 pt-24 md:px-8">
+      <div className="font-mono text-[11px] uppercase tracking-wider">
+        <span className="text-red">(404)</span> Not found
+      </div>
+      <h1 className="mt-6 font-wide text-[38vw] font-black leading-[0.75] tracking-[-0.05em] md:text-[30vw]">404</h1>
+      <div className="mt-10 flex flex-wrap items-baseline justify-between gap-6 border-t border-ink pt-4">
+        <p className="text-xl">This page took a wrong turn somewhere on the network.</p>
+        <Link to="/" className="rounded-full bg-ink px-6 py-3 text-sm font-medium text-paper hover:bg-red">
+          Back home
+        </Link>
+      </div>
     </section>
   );
 }

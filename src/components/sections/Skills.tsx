@@ -1,43 +1,35 @@
 import { Marquee } from "@/components/ui/marquee";
 import { NumberTicker } from "@/components/ui/number-ticker";
-import { BlurFade } from "@/components/ui/blur-fade";
+import { FadeIn } from "@/components/motion";
 import { skills, stats } from "@/data/content";
 
-function Chip({ label }: { label: string }) {
-  return (
-    <span className="mx-1 inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 font-display text-sm text-neutral-300 backdrop-blur transition hover:border-teal-300/40 hover:text-white">
-      <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-teal-300 to-fuchsia-400" />
-      {label}
-    </span>
-  );
-}
-
 export function Skills() {
-  const half = Math.ceil(skills.length / 2);
   return (
-    <section id="skills" className="relative py-20">
-      <div className="relative flex w-full flex-col overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <Marquee pauseOnHover className="[--duration:40s]">
-          {skills.slice(0, half).map((s) => (
-            <Chip key={s} label={s} />
-          ))}
-        </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:40s]">
-          {skills.slice(half).map((s) => (
-            <Chip key={s} label={s} />
+    <section id="skills">
+      <div className="bg-ink py-4 text-paper">
+        <Marquee className="[--duration:55s] [--gap:0rem] p-0" repeat={3}>
+          {skills.map((s) => (
+            <span key={s} className="flex items-center font-mono text-sm uppercase tracking-wider">
+              <span className="px-6">{s}</span>
+              <span className="text-red">✱</span>
+            </span>
           ))}
         </Marquee>
       </div>
 
-      <div className="mx-auto mt-20 grid max-w-6xl grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/10 px-0 md:grid-cols-5">
+      <div className="grid grid-cols-2 border-b border-ink md:grid-cols-5">
         {stats.map((s, i) => (
-          <BlurFade key={s.label} inView delay={i * 0.08} className="bg-[#050508] p-8 text-center">
-            <div className="font-display text-5xl font-bold tracking-tight text-white md:text-6xl">
-              <NumberTicker value={s.value} className="text-white" />
-              <span className="bg-gradient-to-r from-teal-300 to-fuchsia-400 bg-clip-text text-transparent">{s.suffix}</span>
+          <FadeIn
+            key={s.label}
+            delay={i * 0.06}
+            className="border-ink px-5 py-10 odd:border-r md:border-r md:px-8 md:last:border-r-0 [&:nth-child(n+3)]:border-t md:[&:nth-child(n+3)]:border-t-0"
+          >
+            <div className="font-wide text-6xl font-black tracking-tighter md:text-7xl">
+              <NumberTicker value={s.value} className="text-ink" />
+              <span className="text-red">{s.suffix}</span>
             </div>
-            <div className="mt-2 text-xs uppercase tracking-widest text-neutral-500">{s.label}</div>
-          </BlurFade>
+            <div className="mt-3 max-w-[12rem] text-sm leading-snug text-muted">{s.label}</div>
+          </FadeIn>
         ))}
       </div>
     </section>

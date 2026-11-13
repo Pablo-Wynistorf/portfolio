@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-import { Download } from "lucide-react";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
+import { FadeIn, Reveal } from "@/components/motion";
 import { profile } from "@/data/content";
 
 export default function CvPage() {
@@ -9,33 +7,32 @@ export default function CvPage() {
     document.title = "Curriculum vitae · Pablo Wynistorf";
   }, []);
   return (
-    <section className="mx-auto max-w-5xl px-6 pb-24 pt-32">
-      <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
-        <div>
-          <BlurFade>
-            <p className="mb-4 font-mono text-xs uppercase tracking-[0.35em] text-teal-300/80">Curriculum vitae</p>
-          </BlurFade>
-          <BlurFade delay={0.1}>
-            <h1 className="font-display text-5xl font-bold tracking-tight text-white md:text-7xl">Take a look at my CV.</h1>
-          </BlurFade>
-        </div>
-        <BlurFade delay={0.2}>
-          <a href={profile.cv} download>
-            <ShimmerButton shimmerColor="#5eead4" background="rgba(10,10,14,1)" className="gap-2 px-6 py-3 text-sm">
-              <Download className="h-4 w-4" /> Download PDF
-            </ShimmerButton>
-          </a>
-        </BlurFade>
+    <section className="px-5 pb-24 pt-24 md:px-8">
+      <div className="font-mono text-[11px] uppercase tracking-wider">
+        <span className="text-red">(CV)</span> Curriculum vitae
       </div>
-      <BlurFade delay={0.3}>
-        <div className="overflow-hidden rounded-3xl border border-white/10 bg-white shadow-[0_0_120px_-30px_rgba(45,212,191,0.35)]">
-          <object data={profile.cv} type="application/pdf" className="h-[85vh] w-full">
-            <a href={profile.cv} className="block p-6 text-black underline">
-              Download the CV (PDF)
-            </a>
-          </object>
-        </div>
-      </BlurFade>
+      <div className="mt-10 flex flex-wrap items-end justify-between gap-6 border-b border-ink pb-8">
+        <Reveal
+          as="h1"
+          immediate
+          text="Curriculum vitae"
+          className="font-wide text-6xl font-black uppercase leading-[0.85] tracking-tight md:text-9xl"
+        />
+        <a
+          href={profile.cv}
+          download
+          className="rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-paper transition-colors hover:bg-red"
+        >
+          Download PDF ↓
+        </a>
+      </div>
+      <FadeIn className="mt-10">
+        <object data={profile.cv} type="application/pdf" className="h-[90vh] w-full border border-ink bg-white">
+          <a href={profile.cv} className="block p-6 underline">
+            Download the CV (PDF)
+          </a>
+        </object>
+      </FadeIn>
     </section>
   );
 }

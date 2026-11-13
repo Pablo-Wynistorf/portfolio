@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowLeft, ArrowRight, ArrowUpRight, Calendar, MapPin } from "lucide-react";
-import { BlurFade } from "@/components/ui/blur-fade";
-import { TextAnimate } from "@/components/ui/text-animate";
+import { FadeIn, Label } from "@/components/motion";
 import { Lightbox } from "@/components/Lightbox";
 import { projects } from "@/data/content";
 import NotFound from "./NotFound";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function ProjectPage() {
   const { slug } = useParams();
   const idx = projects.findIndex((p) => p.slug === slug);
   const p = projects[idx];
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.3]);
-  const dim = useTransform(scrollYProgress, [0, 1], [0.3, 0.9]);
+  const coverRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: coverRef, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
   const [open, setOpen] = useState<number | null>(null);
 
   useEffect(() => {
@@ -25,175 +23,165 @@ export default function ProjectPage() {
 
   if (!p) return <NotFound />;
   const next = projects[(idx + 1) % projects.length];
+  const meta = [
+    { k: "Year", v: p.year },
+    { k: "Location", v: p.location },
+    { k: "Type", v: p.category },
+    { k: "Tags", v: p.tags.join(", ") },
+  ];
 
   return (
-    <article>
-      <div ref={ref} className="relative h-[85vh] overflow-hidden">
-        <motion.img style={{ y, scale }} src={p.cover} alt={p.title} className="absolute inset-0 h-full w-full object-cover" />
-        <motion.div style={{ opacity: dim }} className="absolute inset-0 bg-black" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030305] via-[#030305]/40 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 mx-auto max-w-6xl px-6 pb-16">
-          <BlurFade>
-            <Link to="/#projects" className="mb-8 inline-flex items-center gap-2 text-sm text-neutral-300 hover:text-white">
-              <ArrowLeft className="h-4 w-4" /> All projects
-            </Link>
-          </BlurFade>
-          <BlurFade delay={0.1}>
-            <span className="mb-4 inline-block rounded-full border border-teal-300/30 bg-teal-300/10 px-3 py-1 text-xs text-teal-200">
-              {p.category}
+    <article className="pt-24">
+      <header className="px-5 md:px-8">
+        <Link to="/#work" className="font-mono text-[11px] uppercase tracking-wider hover:text-red">
+          ← Index
+        </Link>
+        <h1 className="mt-10 font-wide text-[11vw] font-black uppercase leading-[0.85] tracking-[-0.03em] md:text-[8vw]">
+          {p.title.split(" ").map((w, i) => (
+            <span key={i} className="inline-block overflow-hidden align-top">
+              <motion.span
+                className="inline-block"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1, ease: EASE, delay: 0.1 + i * 0.06 }}
+              >
+                {w}&nbsp;
+              </motion.span>
             </span>
-          </BlurFade>
-          <TextAnimate
-            as="h1"
-            by="word"
-            animation="blurInUp"
-            once
-            className="max-w-4xl font-display text-5xl font-bold leading-[0.95] tracking-tight text-white md:text-7xl"
-          >
-            {p.title}
-          </TextAnimate>
-          <BlurFade delay={0.4}>
-            <div className="mt-6 flex flex-wrap gap-5 text-sm text-neutral-300">
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="h-4 w-4" /> {p.location}
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" /> {p.year}
-              </span>
+          ))}
+        </h1>
+        <motion.dl
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-10 grid grid-cols-2 gap-y-4 border-t border-ink pt-3 font-mono text-[11px] uppercase tracking-wider md:grid-cols-4"
+        >
+          {meta.map((m) => (
+            <div key={m.k}>
+              <dt className="text-muted">{m.k}</dt>
+              <dd>{m.v}</dd>
             </div>
-          </BlurFade>
-        </div>
-      </div>
+          ))}
+        </motion.dl>
+      </header>
 
-      <div className="mx-auto max-w-6xl px-6 py-20">
-        <div className="grid gap-16 lg:grid-cols-[1fr_280px]">
-          <div className="space-y-16">
-            {p.sections.map((s) => (
-              <section key={s.heading}>
-                <BlurFade inView>
-                  <h2 className="mb-6 font-display text-3xl font-bold text-white">{s.heading}</h2>
-                </BlurFade>
-                {s.body?.map((para, i) => (
-                  <BlurFade key={i} inView delay={0.05 * i}>
-                    <p className="mb-5 text-lg leading-relaxed text-neutral-400">{para}</p>
-                  </BlurFade>
-                ))}
-                {s.bullets && (
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    {s.bullets.map((b, i) => (
-                      <BlurFade key={i} inView delay={0.05 * i}>
-                        <div className="h-full rounded-2xl border border-white/10 bg-white/[0.02] p-5 transition hover:border-teal-300/30">
-                          {b.label && <div className="mb-1 font-display font-semibold text-white">{b.label}</div>}
-                          <div className="text-sm text-neutral-400">{b.text}</div>
-                        </div>
-                      </BlurFade>
-                    ))}
-                  </div>
-                )}
-              </section>
-            ))}
+      <motion.div
+        ref={coverRef}
+        initial={{ clipPath: "inset(0 50% 0 50%)" }}
+        animate={{ clipPath: "inset(0 0% 0 0%)" }}
+        transition={{ delay: 0.3, duration: 1.4, ease: EASE }}
+        className="relative mt-10 h-[70vh] overflow-hidden bg-paper-2"
+      >
+        <motion.img style={{ y, scale: 1.2 }} src={p.cover} alt={p.title} className="h-full w-full object-cover" />
+      </motion.div>
 
-            {p.video && (
-              <section>
-                <h2 className="mb-6 font-display text-3xl font-bold text-white">Best of WorldSkills Lyon 2024</h2>
-                <BlurFade inView>
-                  <div className="aspect-video overflow-hidden rounded-3xl border border-white/10">
-                    <iframe
-                      className="h-full w-full"
-                      src={`https://www.youtube-nocookie.com/embed/${p.video}`}
-                      title="Best of WorldSkills Lyon 2024"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
-                </BlurFade>
-              </section>
-            )}
-          </div>
+      <div className="px-5 py-20 md:px-8 md:py-28">
+        {p.sections.map((s, si) => (
+          <section key={s.heading} className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
+            <Label n={`0${si + 1}`} className="md:col-span-3">
+              {s.heading}
+            </Label>
+            <div className="md:col-span-8 md:col-start-5">
+              {s.body?.map((para, i) => (
+                <FadeIn key={i} delay={0.05 * i}>
+                  <p className={i === 0 ? "mb-6 text-2xl leading-snug tracking-tight md:text-3xl" : "mb-6 text-lg leading-relaxed text-ink-2"}>
+                    {para}
+                  </p>
+                </FadeIn>
+              ))}
+              {s.bullets && (
+                <ul>
+                  {s.bullets.map((b, i) => (
+                    <FadeIn as="li" key={i} delay={0.03 * i} y={10} className="grid gap-1 border-b border-ink/20 py-4 md:grid-cols-8">
+                        <span className="font-mono text-xs text-muted md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
+                        {b.label && <span className="font-semibold md:col-span-2">{b.label}</span>}
+                        <span className={b.label ? "text-ink-2 md:col-span-5" : "text-ink-2 md:col-span-7"}>{b.text}</span>
+                    </FadeIn>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </section>
+        ))}
 
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-6">
-              <h3 className="mb-4 font-mono text-xs uppercase tracking-widest text-neutral-500">Links</h3>
-              <ul className="space-y-3">
-                {p.links.map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} target="_blank" rel="noreferrer" className="group flex items-center justify-between text-sm text-neutral-300 hover:text-white">
-                      {l.label}
-                      <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <h3 className="mb-3 mt-8 font-mono text-xs uppercase tracking-widest text-neutral-500">Tags</h3>
-              <div className="flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span key={t} className="rounded-full bg-white/5 px-2.5 py-1 text-xs text-neutral-400">
-                    {t}
-                  </span>
-                ))}
+        {p.video && (
+          <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
+            <Label n="▶" className="md:col-span-3">
+              Best of WorldSkills Lyon 2024
+            </Label>
+            <FadeIn className="md:col-span-8 md:col-start-5">
+              <div className="aspect-video bg-ink">
+                <iframe
+                  className="h-full w-full"
+                  src={`https://www.youtube-nocookie.com/embed/${p.video}`}
+                  title="Best of WorldSkills Lyon 2024"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  loading="lazy"
+                />
               </div>
-            </div>
-          </aside>
-        </div>
+            </FadeIn>
+          </section>
+        )}
 
-        <section className="mt-24">
-          <BlurFade inView>
-            <h2 className="mb-8 font-display text-3xl font-bold text-white">Image gallery</h2>
-          </BlurFade>
-          <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+        <section className="grid gap-6 border-t border-ink py-12 md:grid-cols-12">
+          <Label n="↗" className="md:col-span-3">
+            Links
+          </Label>
+          <ul className="md:col-span-8 md:col-start-5">
+            {p.links.map((l) => (
+              <li key={l.href} className="border-b border-ink/20">
+                <a href={l.href} target="_blank" rel="noreferrer" className="group flex justify-between py-4 text-lg hover:text-red">
+                  {l.label}
+                  <span className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">↗</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="border-t border-ink pt-12">
+          <Label n="✱" className="mb-8">
+            Image gallery · {p.gallery.length}
+          </Label>
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
             {p.gallery.map((g, i) => (
-              <BlurFade key={g.src} inView delay={(i % 3) * 0.08} className="mb-4 break-inside-avoid">
-                <button
-                  onClick={() => setOpen(i)}
-                  className="group relative block w-full overflow-hidden rounded-2xl border border-white/10"
-                >
+              <FadeIn key={g.src} delay={(i % 4) * 0.06} className={i % 5 === 0 ? "col-span-2 row-span-2" : ""}>
+                <button onClick={() => setOpen(i)} className="group block h-full w-full overflow-hidden bg-paper-2 text-left">
                   <img
                     src={g.src}
                     alt={g.alt}
                     loading="lazy"
-                    className="w-full transition duration-700 group-hover:scale-105 group-hover:brightness-110"
+                    className="aspect-[4/3] h-full w-full object-cover transition duration-700 ease-out-expo group-hover:scale-105"
                   />
-                  <span className="absolute inset-x-0 bottom-0 translate-y-full bg-gradient-to-t from-black/80 to-transparent p-4 text-left text-sm text-white transition duration-500 group-hover:translate-y-0">
-                    {g.alt}
-                  </span>
                 </button>
-              </BlurFade>
+                <div className="mt-1.5 flex justify-between font-mono text-[10px] uppercase text-muted">
+                  <span>{g.alt}</span>
+                  <span>{String(i + 1).padStart(2, "0")}</span>
+                </div>
+              </FadeIn>
             ))}
           </div>
-        </section>
-
-        <div className="mt-16 space-y-1 text-xs text-neutral-600">
-          <p>
-            Photos by{" "}
-            <Link to="/" className="hover:text-neutral-300">
-              Pablo Wynistorf
-            </Link>
+          <p className="mt-10 font-mono text-[10px] uppercase text-muted">
+            Photos by Pablo Wynistorf
             {p.coverCredit && (
               <>
                 {" "}· Title image by{" "}
-                <a href={p.coverCredit.href} target="_blank" rel="noreferrer" className="hover:text-neutral-300">
+                <a href={p.coverCredit.href} target="_blank" rel="noreferrer" className="underline hover:text-ink">
                   {p.coverCredit.label}
                 </a>
               </>
             )}
           </p>
-        </div>
-
-        <Link
-          to={`/projects/${next.slug}`}
-          className="group relative mt-24 block overflow-hidden rounded-3xl border border-white/10"
-        >
-          <img src={next.cover} alt="" loading="lazy" className="h-64 w-full object-cover opacity-40 transition duration-700 group-hover:scale-105 group-hover:opacity-60" />
-          <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/90 to-transparent p-8">
-            <span className="text-xs uppercase tracking-widest text-neutral-400">Next project</span>
-            <span className="mt-2 flex items-center gap-3 font-display text-3xl font-bold text-white md:text-4xl">
-              {next.title}
-              <ArrowRight className="h-7 w-7 transition group-hover:translate-x-2" />
-            </span>
-          </div>
-        </Link>
+        </section>
       </div>
+
+      <Link to={`/projects/${next.slug}`} className="group block bg-ink px-5 py-16 text-paper md:px-8 md:py-24">
+        <div className="font-mono text-[11px] uppercase tracking-wider text-paper/60">Next project →</div>
+        <div className="mt-4 font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight transition-colors group-hover:text-red md:text-8xl">
+          {next.title}
+        </div>
+      </Link>
 
       <Lightbox images={p.gallery} index={open} onChange={setOpen} />
     </article>

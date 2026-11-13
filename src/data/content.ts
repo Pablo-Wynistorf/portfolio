@@ -6,11 +6,11 @@ export const profile = {
   lastName: "Wynistorf",
   title: "IT Technician",
   roles: [
-    "IT Technician",
-    "Cloud Engineer",
-    "AWS Solutions Architect Pro",
-    "WorldSkills Medallist",
-    "Event Network Builder",
+    "an IT Technician",
+    "a Cloud Engineer",
+    "an AWS Solutions Architect",
+    "a WorldSkills Medallist",
+    "an Event Network Builder",
   ],
   tagline:
     "I design cloud infrastructure on AWS and build the networks behind Europe's biggest football finals and festivals.",

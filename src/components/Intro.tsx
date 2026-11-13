@@ -1,59 +1,49 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 
-const NAME = "PABLO WYNISTORF";
-
-/** A short curtain intro, shown once per browser session on the home page. */
+/** Loader: a 0→100 counter, then the panel lifts away. Once per session, home only. */
 export function Intro() {
   const reduce = useReducedMotion();
-  const [show, setShow] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return window.location.pathname === "/" && !sessionStorage.getItem("intro-seen");
-  });
+  const [show, setShow] = useState(
+    () => typeof window !== "undefined" && window.location.pathname === "/" && !sessionStorage.getItem("intro-seen"),
+  );
+  const n = useMotionValue(0);
+  const label = useTransform(n, (v) => String(Math.round(v)).padStart(3, "0"));
+  const width = useTransform(n, (v) => `${v}%`);
 
   useEffect(() => {
     if (!show) return;
     sessionStorage.setItem("intro-seen", "1");
     document.documentElement.style.overflow = "hidden";
-    const t = setTimeout(() => setShow(false), reduce ? 200 : 1900);
+    const ctl = animate(n, 100, { duration: reduce ? 0.1 : 1.4, ease: [0.65, 0, 0.35, 1] });
+    ctl.then(() => setTimeout(() => setShow(false), reduce ? 0 : 150));
     return () => {
-      clearTimeout(t);
+      ctl.stop();
       document.documentElement.style.overflow = "";
     };
-  }, [show, reduce]);
-
-  useEffect(() => {
-    if (!show) document.documentElement.style.overflow = "";
-  }, [show]);
+  }, [show, reduce, n]);
 
   return (
     <AnimatePresence>
       {show && (
         <motion.div
           key="intro"
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#030305]"
-          exit={{ clipPath: "inset(0 0 100% 0)" }}
+          className="fixed inset-0 z-[200] flex flex-col justify-between bg-ink p-5 text-paper md:p-8"
+          exit={{ y: "-100%" }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <div className="flex overflow-hidden font-display text-3xl font-bold tracking-[0.3em] text-white md:text-6xl">
-            {NAME.split("").map((c, i) => (
-              <motion.span
-                key={i}
-                initial={{ y: "110%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.15 + i * 0.04, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className={c === " " ? "w-4 md:w-8" : ""}
-              >
-                {c}
-              </motion.span>
-            ))}
+          <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider text-paper/60">
+            <span>Pablo Wynistorf</span>
+            <span>Portfolio — {new Date().getFullYear()}</span>
           </div>
-          <motion.div
-            className="absolute bottom-1/3 h-px bg-gradient-to-r from-transparent via-teal-300 to-transparent"
-            initial={{ width: 0 }}
-            animate={{ width: "60%" }}
-            transition={{ delay: 0.4, duration: 1.2, ease: "easeInOut" }}
-          />
+          <div>
+            <motion.div className="font-wide text-[28vw] font-black leading-[0.8] tracking-[-0.05em] md:text-[18vw]">
+              <motion.span>{label}</motion.span>
+            </motion.div>
+            <div className="mt-6 h-px w-full bg-paper/20">
+              <motion.div className="h-full bg-red" style={{ width }} />
+            </div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

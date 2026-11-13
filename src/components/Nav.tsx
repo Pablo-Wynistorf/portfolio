@@ -1,113 +1,122 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
-import { motion } from "motion/react";
-import { Award, FileText, FolderGit2, Home, Mail, Route, User } from "lucide-react";
-import { Dock, DockIcon } from "@/components/ui/dock";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
-import { GithubIcon, LinkedinIcon } from "@/components/icons";
+import { Clock } from "@/components/Clock";
+import { openChat } from "@/components/chat/ChatWidget";
 import { profile } from "@/data/content";
-import { cn } from "@/lib/utils";
 
-const items = [
-  { to: "/#top", label: "Home", icon: Home },
-  { to: "/#about", label: "About", icon: User },
-  { to: "/#journey", label: "Journey", icon: Route },
-  { to: "/#projects", label: "Projects", icon: FolderGit2 },
-  { to: "/#certifications", label: "Certifications", icon: Award },
-  { to: "/p/cv", label: "CV", icon: FileText },
-  { to: "/#contact", label: "Contact", icon: Mail },
+const links = [
+  { to: "/#about", label: "About" },
+  { to: "/#work", label: "Work" },
+  { to: "/#journey", label: "Journey" },
+  { to: "/#certifications", label: "Certifications" },
+  { to: "/p/cv", label: "CV" },
+  { to: "/#contact", label: "Contact" },
 ];
 
-const external = [
-  { href: profile.github, label: "GitHub", icon: GithubIcon },
-  { href: profile.linkedin, label: "LinkedIn", icon: LinkedinIcon },
-];
-
-function Tip({ label }: { label: string }) {
+function RollLink({ to, label, onClick }: { to: string; label: string; onClick?: () => void }) {
   return (
-    <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 scale-90 whitespace-nowrap rounded-md border border-white/10 bg-neutral-900/90 px-2 py-1 text-xs text-white opacity-0 shadow-lg transition-all duration-200 group-hover:scale-100 group-hover:opacity-100">
-      {label}
-    </span>
+    <Link to={to} onClick={onClick} className="group relative inline-block overflow-hidden">
+      <span className="block transition-transform duration-500 ease-out-expo group-hover:-translate-y-full">{label}</span>
+      <span aria-hidden className="absolute inset-0 block translate-y-full text-red transition-transform duration-500 ease-out-expo group-hover:translate-y-0">
+        {label}
+      </span>
+    </Link>
   );
 }
 
 export function Nav() {
   const { pathname } = useLocation();
+  const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setHidden(y > 400 && y > prev);
+  });
+
+  useEffect(() => setOpen(false), [pathname]);
+  useEffect(() => {
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
+
   return (
     <>
-      <ScrollProgress className="top-0 z-[60] h-[2px] bg-gradient-to-r from-teal-300 via-sky-400 to-fuchsia-500" />
+      <ScrollProgress className="top-0 z-[60] h-[2px] bg-red" />
 
       <motion.header
-        initial={{ y: -40, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.6 }}
-        className="fixed left-0 right-0 top-0 z-50 flex items-center justify-between px-5 py-4 md:px-10"
+        animate={{ y: hidden && !open ? "-110%" : 0 }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed inset-x-0 top-0 z-50 text-white mix-blend-difference"
       >
-        <Link to="/#top" className="group flex items-center gap-3">
-          <img
-            src={profile.avatar}
-            alt=""
-            className="h-9 w-9 rounded-full object-cover ring-2 ring-white/10 transition group-hover:ring-teal-300/60"
-          />
-          <span className="font-display text-sm font-semibold tracking-wide text-white/90">
-            pablo<span className="text-teal-300">.one</span>
-          </span>
-        </Link>
-        <a
-          href={`mailto:${profile.email}`}
-          className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs text-white/80 backdrop-blur-md transition hover:border-teal-300/50 hover:text-white"
-        >
-          <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400 align-middle" />
-          Get in touch
-        </a>
+        <div className="grid grid-cols-2 items-center px-5 py-4 font-mono text-[11px] uppercase tracking-wider md:grid-cols-[1fr_auto_1fr] md:px-8">
+          <Link to="/#top" className="justify-self-start font-sans text-sm font-semibold normal-case tracking-normal">
+            {profile.name}
+          </Link>
+          <nav aria-label="Main" className="hidden gap-7 md:flex">
+            {links.map((l) => (
+              <RollLink key={l.label} {...l} />
+            ))}
+          </nav>
+          <div className="flex items-center justify-self-end gap-5">
+            <Clock className="hidden lg:inline" />
+            <button onClick={() => openChat()} className="hidden underline-offset-4 hover:underline md:inline">
+              Ask AI Pablo
+            </button>
+            <button
+              onClick={() => setOpen((o) => !o)}
+              aria-expanded={open}
+              aria-label="Menu"
+              className="flex h-8 items-center gap-2 md:hidden"
+            >
+              {open ? "Close" : "Menu"}
+            </button>
+          </div>
+        </div>
       </motion.header>
 
-      <motion.nav
-        aria-label="Main"
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.5, type: "spring", stiffness: 120, damping: 16 }}
-        className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2"
-      >
-        <Dock
-          iconMagnification={64}
-          iconDistance={120}
-          className="mt-0 h-14 border-white/10 bg-neutral-950/70 shadow-[0_8px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-        >
-          {items.map(({ to, label, icon: Icon }) => {
-            const active = to === "/p/cv" ? pathname.startsWith("/p/cv") : false;
-            return (
-              <DockIcon key={label} className="group relative">
-                <Link
-                  to={to}
-                  aria-label={label}
-                  className={cn(
-                    "flex h-full w-full items-center justify-center rounded-full text-neutral-300 transition hover:bg-white/10 hover:text-white",
-                    active && "bg-white/10 text-teal-300",
-                  )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 flex flex-col justify-between bg-ink px-5 pb-8 pt-24 text-paper md:hidden"
+          >
+            <nav className="flex flex-col">
+              {links.map((l, i) => (
+                <motion.div
+                  key={l.label}
+                  initial={{ y: 40, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.25 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="border-b border-paper/15 py-3"
                 >
-                  <Icon className="h-[45%] w-[45%]" />
-                </Link>
-                <Tip label={label} />
-              </DockIcon>
-            );
-          })}
-          <div className="mx-1 hidden h-8 w-px self-center bg-white/10 sm:block" />
-          {external.map(({ href, label, icon: Icon }) => (
-            <DockIcon key={label} className="group relative hidden sm:flex">
-              <a
-                href={href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={label}
-                className="flex h-full w-full items-center justify-center rounded-full text-neutral-300 transition hover:bg-white/10 hover:text-white"
+                  <Link to={l.to} className="flex items-baseline justify-between font-wide text-4xl font-bold uppercase">
+                    {l.label}
+                    <span className="font-mono text-xs font-normal text-paper/50">0{i + 1}</span>
+                  </Link>
+                </motion.div>
+              ))}
+            </nav>
+            <div className="flex items-center justify-between font-mono text-xs uppercase">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  openChat();
+                }}
+                className="text-red"
               >
-                <Icon className="h-[45%] w-[45%]" />
-              </a>
-              <Tip label={label} />
-            </DockIcon>
-          ))}
-        </Dock>
-      </motion.nav>
+                Ask AI Pablo →
+              </button>
+              <Clock />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

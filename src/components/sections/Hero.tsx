@@ -1,163 +1,134 @@
 import { useRef } from "react";
 import { Link } from "react-router";
-import { motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
-import { ArrowDown, Download, Sparkles } from "lucide-react";
-import { Particles } from "@/components/ui/particles";
-import { Spotlight } from "@/components/ui/spotlight-new";
-import { AuroraText } from "@/components/ui/aurora-text";
-import { WordRotate } from "@/components/ui/word-rotate";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
-import { BorderBeam } from "@/components/ui/border-beam";
-import { TextAnimate } from "@/components/ui/text-animate";
+import { motion, useScroll, useTransform } from "motion/react";
+import { Clock } from "@/components/Clock";
+import { Magnetic } from "@/components/motion";
+import { openChat } from "@/components/chat/ChatWidget";
 import { profile } from "@/data/content";
 
-const AURORA = ["#2dd4bf", "#38bdf8", "#a78bfa", "#f472b6"];
+const EASE = [0.16, 1, 0.3, 1] as const;
+
+function BigLine({ text, delay }: { text: string; delay: number }) {
+  return (
+    <span className="block overflow-hidden">
+      <motion.span
+        className="block"
+        initial={{ y: "100%" }}
+        animate={{ y: 0 }}
+        transition={{ duration: 1.1, ease: EASE, delay }}
+      >
+        {text}
+      </motion.span>
+    </span>
+  );
+}
+
+const meta = [
+  { k: "Based in", v: "Switzerland" },
+  { k: "Role", v: profile.title },
+  { k: "Focus", v: "AWS cloud · Event networks" },
+];
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 220]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  // 3D tilt for the portrait
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const rx = useSpring(useTransform(my, [-0.5, 0.5], [12, -12]), { stiffness: 150, damping: 15 });
-  const ry = useSpring(useTransform(mx, [-0.5, 0.5], [-12, 12]), { stiffness: 150, damping: 15 });
+  const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "35%"]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
 
   return (
-    <section
-      id="top"
-      ref={ref}
-      className="relative flex min-h-[100svh] items-center overflow-hidden px-6 pt-24"
-      onPointerMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect();
-        mx.set((e.clientX - r.left) / r.width - 0.5);
-        my.set((e.clientY - r.top) / r.height - 0.5);
-      }}
-    >
-      {/* backdrop */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(45,212,191,0.12),transparent_60%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]" />
-        <Particles className="absolute inset-0" quantity={140} ease={70} color="#99f6e4" refresh />
-      </div>
-      <Spotlight
-        gradientFirst="radial-gradient(68.54% 68.72% at 55.02% 31.46%, hsla(170, 100%, 85%, .10) 0, hsla(170, 100%, 55%, .03) 50%, hsla(170, 100%, 45%, 0) 80%)"
-        gradientSecond="radial-gradient(50% 50% at 50% 50%, hsla(200, 100%, 85%, .07) 0, hsla(200, 100%, 55%, .02) 80%, transparent 100%)"
-        gradientThird="radial-gradient(50% 50% at 50% 50%, hsla(280, 100%, 85%, .05) 0, hsla(280, 100%, 45%, .02) 80%, transparent 100%)"
-      />
-
-      <motion.div style={{ y, scale, opacity: fade }} className="mx-auto grid w-full max-w-6xl items-center gap-14 md:grid-cols-[1.25fr_1fr]">
-        <div className="relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-300/20 bg-teal-300/5 px-4 py-1.5 text-xs text-teal-200 backdrop-blur"
-          >
-            <Sparkles className="h-3.5 w-3.5" />
-            WorldSkills 2024 · Medallion for Excellence
-          </motion.div>
-
-          <h1 className="font-display text-6xl font-bold leading-[0.9] tracking-tighter text-white sm:text-7xl md:text-8xl lg:text-[8.5rem]">
-            <TextAnimate as="span" by="character" animation="blurInUp" duration={0.8} once className="block">
-              {profile.firstName}
-            </TextAnimate>
-            <AuroraText colors={AURORA} speed={1.2} className="block">
-              {profile.lastName}
-            </AuroraText>
-          </h1>
-
-          <div className="mt-6 flex flex-wrap items-center gap-x-3 text-xl text-neutral-400 md:text-2xl">
-            <span>I'm an</span>
-            <WordRotate
-              words={profile.roles}
-              duration={2600}
-              className="font-display font-semibold text-white"
-            />
+    <section id="top" ref={ref} className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden px-5 pb-6 pt-24 md:px-8">
+      {/* meta row */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
+        className="grid grid-cols-2 gap-y-4 border-t border-ink pt-3 font-mono text-[11px] uppercase tracking-wider md:grid-cols-12"
+      >
+        {meta.map((m) => (
+          <div key={m.k} className="md:col-span-3">
+            <div className="text-muted">{m.k}</div>
+            <div>{m.v}</div>
           </div>
+        ))}
+        <div className="md:col-span-3 md:text-right">
+          <div className="text-muted">Local time</div>
+          <Clock />
+        </div>
+      </motion.div>
 
+      {/* middle: statement + portrait */}
+      <div className="my-8 grid items-end gap-8 md:grid-cols-12">
+        <div className="md:col-span-7">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.9, duration: 0.7 }}
-            className="mt-6 max-w-xl text-base leading-relaxed text-neutral-400 md:text-lg"
+            transition={{ delay: 0.7, duration: 1, ease: EASE }}
+            className="max-w-xl text-2xl leading-[1.15] tracking-tight md:text-4xl"
           >
-            {profile.tagline}
+            I build cloud infrastructure on AWS and the networks behind{" "}
+            <span className="font-serif italic">Europe's biggest</span> football finals and festivals.
           </motion.p>
-
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.1, duration: 0.7 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="mt-8 flex flex-wrap items-center gap-3"
           >
-            <Link to="/#projects">
-              <ShimmerButton
-                shimmerColor="#5eead4"
-                background="rgba(10,10,14,1)"
-                className="px-7 py-3.5 text-sm font-medium"
+            <Magnetic>
+              <Link
+                to="/#work"
+                className="inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-paper transition-colors hover:bg-red"
               >
-                See my work
-              </ShimmerButton>
-            </Link>
+                Selected work <span aria-hidden>↓</span>
+              </Link>
+            </Magnetic>
             <a
               href={profile.cv}
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 text-sm text-white/90 transition hover:border-white/40 hover:bg-white/5"
+              className="inline-flex items-center gap-2 rounded-full border border-ink px-6 py-3.5 text-sm font-medium transition-colors hover:bg-ink hover:text-paper"
             >
-              <Download className="h-4 w-4 transition group-hover:translate-y-0.5" />
-              Download CV
+              CV (PDF)
             </a>
+            <button
+              onClick={() => openChat()}
+              className="px-3 py-3.5 text-sm font-medium underline decoration-red decoration-2 underline-offset-4 hover:text-red"
+            >
+              Ask AI Pablo
+            </button>
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8, rotate: -6 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ delay: 0.4, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ rotateX: rx, rotateY: ry, transformPerspective: 1000 }}
-          className="relative mx-auto aspect-square w-64 sm:w-80 md:w-full md:max-w-sm"
+        <motion.figure
+          initial={{ clipPath: "inset(100% 0 0 0)" }}
+          animate={{ clipPath: "inset(0% 0 0 0)" }}
+          transition={{ delay: 0.3, duration: 1.4, ease: EASE }}
+          className="relative ml-auto hidden aspect-[4/5] w-full overflow-hidden bg-paper-2 md:col-span-2 md:col-start-11 md:block"
         >
-          <div className="absolute -inset-10 animate-[spin_18s_linear_infinite] rounded-full bg-[conic-gradient(from_0deg,#2dd4bf33,#38bdf833,#a78bfa33,#f472b633,#2dd4bf33)] blur-3xl" />
-          <div className="relative h-full w-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-neutral-900">
-            <img src={profile.avatar} alt={profile.name} className="h-full w-full object-cover" fetchPriority="high" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-            <BorderBeam size={180} duration={8} colorFrom="#2dd4bf" colorTo="#a78bfa" borderWidth={2} />
-            <BorderBeam size={180} duration={8} delay={4} colorFrom="#f472b6" colorTo="#38bdf8" borderWidth={2} />
-          </div>
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -left-6 bottom-10 rounded-2xl border border-white/10 bg-neutral-950/80 px-4 py-3 text-xs backdrop-blur-xl"
-          >
-            <div className="text-neutral-400">AWS Certified</div>
-            <div className="font-display text-sm font-semibold text-white">Solutions Architect Pro</div>
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute -right-4 top-8 rounded-2xl border border-white/10 bg-neutral-950/80 px-4 py-3 text-xs backdrop-blur-xl"
-          >
-            <div className="text-neutral-400">Networks for</div>
-            <div className="font-display text-sm font-semibold text-white">3 UEFA finals</div>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          <motion.img
+            style={{ scale: imgScale }}
+            src={profile.avatar}
+            alt={profile.name}
+            fetchPriority="high"
+            className="h-full w-full object-cover grayscale"
+          />
+          <figcaption className="absolute bottom-2 left-2 bg-paper px-1.5 py-0.5 font-mono text-[10px] uppercase">
+            Fig. 01 — Pablo
+          </figcaption>
+        </motion.figure>
+      </div>
 
-      <motion.a
-        href="#about"
-        aria-label="Scroll down"
-        style={{ opacity: fade }}
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.8, repeat: Infinity }}
-        className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 text-neutral-500 hover:text-white md:block"
+      {/* the name, full width */}
+      <motion.h1
+        style={{ y: nameY }}
+        aria-label={profile.name}
+        className="font-wide text-[13vw] font-black uppercase leading-[0.8] tracking-[-0.045em] md:text-[11.6vw]"
       >
-        <ArrowDown className="h-5 w-5" />
-      </motion.a>
+        <BigLine text={profile.firstName} delay={0.1} />
+        <span className="flex items-end justify-between">
+          <BigLine text={profile.lastName} delay={0.2} />
+        </span>
+      </motion.h1>
     </section>
   );
 }

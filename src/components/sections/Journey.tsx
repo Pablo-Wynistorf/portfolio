@@ -1,57 +1,78 @@
+import { useRef } from "react";
 import { Link } from "react-router";
-import { ArrowUpRight } from "lucide-react";
-import { Timeline } from "@/components/ui/timeline";
-import { SectionTitle } from "./SectionTitle";
+import { motion, useScroll, useSpring } from "motion/react";
+import { FadeIn, Label, Reveal } from "@/components/motion";
 import { timeline } from "@/data/content";
 
 export function Journey() {
   const years = [...new Set(timeline.map((t) => t.year))];
-  const data = years.map((year) => ({
-    title: year,
-    content: (
-      <div className="space-y-4">
-        {timeline
-          .filter((t) => t.year === year)
-          .map((t) => {
-            const inner = (
-              <>
-                <div className="flex items-start justify-between gap-4">
-                  <h4 className="font-display text-lg font-semibold text-white md:text-xl">{t.title}</h4>
-                  <ArrowUpRight className="h-5 w-5 shrink-0 text-neutral-600 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-teal-300" />
-                </div>
-                <p className="mt-1 text-sm text-neutral-400 md:text-base">{t.text}</p>
-              </>
-            );
-            const cls =
-              "group block rounded-2xl border border-white/5 bg-white/[0.02] p-5 transition hover:border-teal-300/30 hover:bg-white/[0.04]";
-            return "to" in t && t.to ? (
-              <Link key={t.title} to={t.to} className={cls}>
-                {inner}
-              </Link>
-            ) : (
-              <a key={t.title} href={(t as { href: string }).href} target="_blank" rel="noreferrer" className={cls}>
-                {inner}
-              </a>
-            );
-          })}
-      </div>
-    ),
-  }));
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start 70%", "end 60%"] });
+  const scaleY = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
 
   return (
-    <section id="journey" className="relative py-20">
-      <Timeline
-        data={data}
-        heading={
-          <div className="mx-auto max-w-7xl px-4 md:px-8 lg:px-10">
-            <SectionTitle
-              eyebrow="02 · Journey"
-              title="From stadiums to the cloud."
-              sub="Networks for European football finals and festivals, and a path from SwissSkills to WorldSkills."
-            />
+    <section id="journey" className="border-t border-ink px-5 py-24 md:px-8 md:py-36">
+      <div className="mb-16 grid gap-6 md:grid-cols-12">
+        <Label n="03" className="md:col-span-3">
+          Journey
+        </Label>
+        <Reveal
+          as="h2"
+          text="From stadiums to the cloud."
+          className="font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight md:col-span-9 md:text-8xl"
+        />
+      </div>
+
+      <div ref={ref} className="relative">
+        {/* progress rule */}
+        <div className="absolute top-0 hidden h-full w-px bg-ink/15 md:left-[30%] md:block">
+          <motion.div style={{ scaleY }} className="h-full w-full origin-top bg-red" />
+        </div>
+
+        {years.map((year) => (
+          <div key={year} className="grid gap-6 pb-16 md:grid-cols-12">
+            <div className="md:col-span-3">
+              <div className="md:sticky md:top-24">
+                <span className="font-wide text-7xl font-black tracking-tighter md:text-[6.5rem] md:leading-none">{year}</span>
+              </div>
+            </div>
+            <ul className="md:col-span-8 md:col-start-5">
+              {timeline
+                .filter((t) => t.year === year)
+                .map((t, i) => {
+                  const inner = (
+                    <>
+                      <span className="font-mono text-xs text-muted">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="flex-1">
+                        <span className="block text-xl font-semibold tracking-tight transition-colors group-hover:text-red md:text-2xl">
+                          {t.title}
+                        </span>
+                        <span className="mt-1 block text-muted">{t.text}</span>
+                      </span>
+                      <span aria-hidden className="text-xl transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                        ↗
+                      </span>
+                    </>
+                  );
+                  const cls = "group flex items-baseline gap-5 border-b border-ink/20 py-5";
+                  return (
+                    <FadeIn as="li" key={t.title} delay={i * 0.05} y={16}>
+                        {"to" in t && t.to ? (
+                          <Link to={t.to} className={cls}>
+                            {inner}
+                          </Link>
+                        ) : (
+                          <a href={(t as { href: string }).href} target="_blank" rel="noreferrer" className={cls}>
+                            {inner}
+                          </a>
+                        )}
+                    </FadeIn>
+                  );
+                })}
+            </ul>
           </div>
-        }
-      />
+        ))}
+      </div>
     </section>
   );
 }

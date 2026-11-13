@@ -35,7 +35,7 @@ export function Lightbox({
     <AnimatePresence>
       {index !== null && (
         <motion.div
-          className="fixed inset-0 z-[90] flex items-center justify-center bg-black/90 backdrop-blur-xl"
+          className="fixed inset-0 z-[90] flex items-center justify-center bg-ink/95"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -52,16 +52,16 @@ export function Lightbox({
               animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
               transition={{ duration: 0.4 }}
-              className="max-h-[85vh] max-w-[92vw] rounded-2xl object-contain shadow-2xl"
+              className="max-h-[85vh] max-w-[92vw] object-contain"
               onClick={(e) => e.stopPropagation()}
             />
           </AnimatePresence>
-          <p className="absolute bottom-8 left-1/2 -translate-x-1/2 text-sm text-neutral-400">
+          <p className="absolute bottom-8 left-1/2 -translate-x-1/2 font-mono text-[11px] uppercase tracking-wider text-paper/70">
             {images[index].alt} · {index + 1}/{images.length}
           </p>
           <button
             aria-label="Close"
-            className="absolute right-6 top-6 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+            className="absolute right-6 top-6 p-3 text-paper hover:text-red"
             onClick={() => onChange(null)}
           >
             <X className="h-5 w-5" />
@@ -70,7 +70,7 @@ export function Lightbox({
             <>
               <button
                 aria-label="Previous"
-                className="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                className="absolute left-4 p-3 text-paper hover:text-red"
                 onClick={(e) => {
                   e.stopPropagation();
                   go(-1);
@@ -80,7 +80,7 @@ export function Lightbox({
               </button>
               <button
                 aria-label="Next"
-                className="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
+                className="absolute right-4 p-3 text-paper hover:text-red"
                 onClick={(e) => {
                   e.stopPropagation();
                   go(1);
