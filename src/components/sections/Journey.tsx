@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { motion, useScroll, useSpring } from "motion/react";
 import { FadeIn, Label, Reveal } from "@/components/motion";
 import { timeline } from "@/data/content";
+import { t } from "@/i18n/t";
 
 export function Journey() {
   const years = [...new Set(timeline.map((t) => t.year))];
@@ -14,11 +15,11 @@ export function Journey() {
     <section id="journey" className="border-t border-ink px-5 py-24 md:px-8 md:py-36">
       <div className="mb-16 grid gap-6 md:grid-cols-12">
         <Label n="03" className="md:col-span-3">
-          Journey
+          {t.journey.label}
         </Label>
         <Reveal
           as="h2"
-          text="From stadiums to the cloud."
+          text={t.journey.title}
           className="font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight md:col-span-9 md:text-8xl"
         />
       </div>

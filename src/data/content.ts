@@ -142,6 +142,8 @@ export type Project = {
   sections: Section[];
   gallery: { src: string; alt: string }[];
   video?: string;
+  /** A document shown inline on the project page, e.g. a project report. */
+  pdf?: { src: string; pages: number; lang: string };
   links: { label: string; href: string }[];
   coords: [number, number];
 };
@@ -297,6 +299,57 @@ export const projects: Project[] = [
       { src: pj("esc-basel", "noc"), alt: "Network monitoring room during the live show" },
     ],
     links: [],
+  },
+  {
+    slug: "ipa-aws-hybrid-cloud",
+    title: "IPA: AWS Hybrid Cloud Project Evaluation",
+    short: "My final apprenticeship project: a redundant IPSec Site-to-Site VPN with BGP between an on-premises lab and AWS.",
+    location: "Bern, Switzerland",
+    year: "2025",
+    category: "Final project",
+    tags: ["AWS", "Networking", "VPN"],
+    cover: pj("ipa-aws-hybrid-cloud", "network-diagram"),
+    coords: [46.948, 7.4474],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "The IPA (Individuelle Praktische Arbeit) is the final practical project of my apprenticeship as an IT Technician in Platform Development (Informatiker Plattformentwicklung EFZ). I did it at Swisscom in March 2025.",
+          "The task was to prove that a redundant IPSec Site-to-Site VPN between an on-premises environment and an AWS VPC works, to monitor it, and to evaluate when this kind of hybrid cloud connection makes sense.",
+        ],
+      },
+      {
+        heading: "Roles and skills",
+        bullets: [
+          { label: "Roles", text: "Solutions Architect, Network Engineer" },
+          { label: "Skills gained", text: "BGP routing, IPSec VPN, Site-to-Site VPN, Transit Gateway routing" },
+          { label: "Technologies", text: "AWS, OPNsense firewall, VMware ESXi, Ubuntu Server, Cisco ASR, HERMES 5" },
+        ],
+      },
+      {
+        heading: "What I built",
+        bullets: [
+          { label: "On-premises", text: "Two OPNsense firewalls as VMs on VMware ESXi in a Swisscom lab, each with its own internet line and public IP, set up for high availability." },
+          { label: "VPN", text: "Two AWS Site-to-Site VPN connections to the Frankfurt region (eu-central-1), each with two IPSec tunnels: one active, one backup." },
+          { label: "Routing", text: "An AWS Transit Gateway links the VPC subnets and both VPNs. BGP peering between on-premises and AWS routes traffic dynamically." },
+          { label: "Monitoring", text: "Amazon CloudWatch watches the tunnels. Amazon SNS sends an alert when one goes down." },
+          { label: "Tests", text: "Ubuntu test servers on both sides checked connectivity, speed, latency and failover." },
+        ],
+      },
+      {
+        heading: "Result",
+        body: [
+          "The setup met all requirements. The average speed was 314 Mbit/s against a target of 100 Mbit/s. The average latency was 10.2 ms against a target of about 25 ms. When the primary firewall was shut down, the connection was back within a few seconds, and the primary took over again once it was running.",
+          "The project followed the HERMES 5.1 project method. The full documentation has 205 pages and is written in German.",
+        ],
+      },
+    ],
+    pdf: { src: m("projects/ipa-aws-hybrid-cloud/ipa-pablo-wynistorf.pdf"), pages: 205, lang: "de" },
+    gallery: [
+      { src: pj("ipa-aws-hybrid-cloud", "network-diagram"), alt: "Network diagram: on-premises and AWS" },
+      { src: pj("ipa-aws-hybrid-cloud", "title-page"), alt: "Title page of the documentation" },
+    ],
+    links: [{ label: "Documentation (PDF, German)", href: m("projects/ipa-aws-hybrid-cloud/ipa-pablo-wynistorf.pdf") }],
   },
   {
     slug: "worldskills",
@@ -657,6 +710,12 @@ export const timeline: { year: string; title: string; text: string; to?: string;
     title: "AWS Solutions Architect – Professional",
     text: "The professional-level AWS architecture certification.",
     to: "/certifications/aws-certified-solutions-architect-professional",
+  },
+  {
+    year: "2025",
+    title: "IPA: AWS Hybrid Cloud",
+    text: "Final apprenticeship project: redundant Site-to-Site VPN with BGP to AWS.",
+    to: "/projects/ipa-aws-hybrid-cloud",
   },
   {
     year: "2025",

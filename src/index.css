@@ -203,3 +203,12 @@
     border-color: var(--color-ink);
   }
 }
+
+/* German, French and Italian have long words (e.g. "Projektevaluation"):
+   let big headings hyphenate or break instead of running off the screen. */
+h1,
+h2,
+h3 {
+  hyphens: auto;
+  overflow-wrap: anywhere;
+}

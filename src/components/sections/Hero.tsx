@@ -5,6 +5,7 @@ import { Clock } from "@/components/Clock";
 import { Magnetic } from "@/components/motion";
 import { openChat } from "@/components/chat/ChatWidget";
 import { profile } from "@/data/content";
+import { t } from "@/i18n/t";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -23,18 +24,17 @@ function BigLine({ text, delay }: { text: string; delay: number }) {
   );
 }
 
-const meta = [
-  { k: "Based in", v: "Switzerland" },
-  { k: "Now", v: "AWS · Technical Account Manager" },
-  { k: "Focus", v: "AWS cloud · Event networks" },
-];
-
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const desktop = typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches;
   const nameY = useTransform(scrollYProgress, [0, 1], ["0%", desktop ? "35%" : "0%"]);
   const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
+  const meta = [
+    { k: t.hero.basedIn, v: t.hero.basedInV },
+    { k: t.hero.now, v: t.hero.nowV },
+    { k: t.hero.focus, v: t.hero.focusV },
+  ];
 
   return (
     <section id="top" ref={ref} className="relative flex flex-col gap-8 overflow-hidden px-5 pb-10 pt-20 md:min-h-[100svh] md:justify-between md:gap-0 md:px-8 md:pb-6 md:pt-24">
@@ -52,7 +52,7 @@ export function Hero() {
           </div>
         ))}
         <div className="md:col-span-3 md:text-right">
-          <div className="text-muted">Local time</div>
+          <div className="text-muted">{t.hero.localTime}</div>
           <Clock />
         </div>
       </motion.div>
@@ -66,8 +66,7 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 1, ease: EASE }}
             className="max-w-xl text-[1.65rem] leading-[1.15] tracking-tight md:text-4xl"
           >
-            Technical Account Manager at <span className="font-serif italic">AWS</span>, founder of Nextenic GmbH,
-            and the network builder behind five UEFA finals and Openair Frauenfeld.
+            {t.hero.statementA}<span className="font-serif italic">AWS</span>{t.hero.statementB}
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
@@ -80,7 +79,7 @@ export function Hero() {
                 to="/#work"
                 className="flex w-full items-center justify-center gap-3 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-paper transition-colors hover:bg-red sm:inline-flex sm:w-auto"
               >
-                Selected work <span aria-hidden>↓</span>
+                {t.hero.selectedWork} <span aria-hidden>↓</span>
               </Link>
             </Magnetic>
             <a
@@ -89,13 +88,13 @@ export function Hero() {
               rel="noreferrer"
               className="flex items-center justify-center gap-2 rounded-full border border-ink px-6 py-3.5 text-sm font-medium transition-colors hover:bg-ink hover:text-paper sm:inline-flex"
             >
-              CV (PDF)
+              {t.hero.cvPdf}
             </a>
             <button
               onClick={() => openChat()}
               className="col-span-2 justify-self-start px-1 py-2 text-sm font-medium underline decoration-red decoration-2 underline-offset-4 hover:text-red sm:col-span-1 sm:px-3 sm:py-3.5"
             >
-              Ask AI Pablo
+              {t.nav.askAi}
             </button>
           </motion.div>
         </div>
@@ -109,7 +108,7 @@ export function Hero() {
           <motion.img
             style={{ scale: imgScale }}
             src={profile.heroImage}
-            alt={`${profile.name} by the sea`}
+            alt={t.hero.imageAlt}
             fetchPriority="high"
             className="h-full w-full object-cover object-[50%_70%]"
           />

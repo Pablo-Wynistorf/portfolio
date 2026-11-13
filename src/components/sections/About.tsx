@@ -1,13 +1,14 @@
 import { Link } from "react-router";
 import { ClipImage, FadeIn, Label, Reveal, ScrollInk } from "@/components/motion";
 import { about, profile } from "@/data/content";
+import { t } from "@/i18n/t";
 
 export function About() {
   return (
     <section id="about" className="px-5 py-24 md:px-8 md:py-36">
       <div className="grid gap-10 md:grid-cols-12">
         <Label n="01" className="md:col-span-3">
-          About
+          {t.about.label}
         </Label>
         <div className="md:col-span-9">
           <ScrollInk
@@ -23,7 +24,7 @@ export function About() {
 
       <div className="mt-16 grid gap-10 md:grid-cols-12">
         <div className="md:col-span-3">
-          <p className="font-serif text-3xl italic leading-tight">From SwissSkills to the world stage.</p>
+          <p className="font-serif text-3xl italic leading-tight">{t.about.tagline}</p>
         </div>
         <FadeIn className="md:col-span-5 md:col-start-5">
           <p className="text-lg leading-relaxed">{about.competition}</p>
@@ -31,7 +32,7 @@ export function About() {
             to="/projects/worldskills"
             className="mt-6 inline-flex items-center gap-2 border-b border-ink pb-0.5 text-sm font-medium hover:border-red hover:text-red"
           >
-            Read the WorldSkills story →
+            {t.about.readWs}
           </Link>
         </FadeIn>
       </div>
@@ -39,9 +40,9 @@ export function About() {
       <div className="mt-24 md:mt-36">
         <div className="grid gap-6 border-b border-ink pb-4 md:grid-cols-12">
           <Label n="01.1" className="md:col-span-3">
-            Beyond work
+            {t.about.beyond}
           </Label>
-          <Reveal as="h3" text="What fills the rest of my week." className="font-wide text-3xl font-bold uppercase leading-none tracking-tight md:col-span-9 md:text-5xl" />
+          <Reveal as="h3" text={t.about.beyondTitle} className="font-wide text-3xl font-bold uppercase leading-none tracking-tight md:col-span-9 md:text-5xl" />
         </div>
         <ol>
           {about.hobbies.map((h, i) => (

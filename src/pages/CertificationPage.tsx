@@ -3,29 +3,30 @@ import { FadeIn, Label, Reveal } from "@/components/motion";
 import { certifications } from "@/data/content";
 import NotFound from "./NotFound";
 import { useSeo } from "@/lib/seo";
+import { t } from "@/i18n/t";
 
 export default function CertificationPage() {
   const { slug } = useParams();
   const c = certifications.find((x) => x.slug === slug);
 
   useSeo({
-    title: c ? `${c.title} · Pablo Wynistorf` : "Not found · Pablo Wynistorf",
+    title: c ? `${c.title} · Pablo Wynistorf` : `${t.seo.notFound} · Pablo Wynistorf`,
     description: c ? `${c.title}, ${c.issuer}, ${c.achieved}.` : undefined,
     path: `/certifications/${slug}`,
   });
 
   if (!c) return <NotFound />;
   const isMedal = c.slug === "worldskills";
-  const links = [{ label: "View on Credly", href: c.credly }, ...(c.extra ?? [])];
+  const links = [{ label: t.cert.credly, href: c.credly }, ...(c.extra ?? [])];
 
   return (
     <article className="px-5 pb-24 pt-24 md:px-8">
       <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider">
         <Link to="/#certifications" className="hover:text-red">
-          ← Certifications
+          {t.cert.back}
         </Link>
         <Link to={`/md/certifications/${c.slug}`} className="hover:text-red">
-          View as Markdown
+          {t.cert.viewMd}
         </Link>
       </div>
 
@@ -49,16 +50,16 @@ export default function CertificationPage() {
           </FadeIn>
           <dl className="mt-10 grid grid-cols-2 gap-y-4 border-t border-ink pt-3 font-mono text-[11px] uppercase tracking-wider">
             <div>
-              <dt className="text-muted">Issuer</dt>
+              <dt className="text-muted">{t.cert.issuer}</dt>
               <dd>{c.issuer}</dd>
             </div>
             <div>
-              <dt className="text-muted">Achieved</dt>
+              <dt className="text-muted">{t.cert.achieved}</dt>
               <dd>{c.achieved}</dd>
             </div>
             {c.id && (
               <div className="col-span-2">
-                <dt className="text-muted">Certification ID</dt>
+                <dt className="text-muted">{t.cert.id}</dt>
                 <dd className="break-all normal-case">{c.id}</dd>
               </div>
             )}
@@ -74,7 +75,7 @@ export default function CertificationPage() {
             {isMedal && (
               <li className="border-b border-ink/20">
                 <Link to="/projects/worldskills" className="flex justify-between py-4 text-lg hover:text-red">
-                  My WorldSkills story <span>→</span>
+                                    {t.cert.wsStory} <span>→</span>
                 </Link>
               </li>
             )}
@@ -85,12 +86,12 @@ export default function CertificationPage() {
       {c.pdf && (
         <section className="mt-24 border-t border-ink pt-10">
           <Label n="PDF" className="mb-8">
-            Certificate
+            {t.cert.certificate}
           </Label>
           <FadeIn>
             <object data={c.pdf} type="application/pdf" className="h-[80vh] w-full border border-ink bg-white">
               <a href={c.pdf} className="block p-6 underline">
-                Download the certificate (PDF)
+                {t.cert.download}
               </a>
             </object>
           </FadeIn>

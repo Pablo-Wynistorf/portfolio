@@ -1,5 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { t } from "@/i18n/t";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 export function Lightbox({
@@ -60,7 +61,7 @@ export function Lightbox({
             {images[index].alt} · {index + 1}/{images.length}
           </p>
           <button
-            aria-label="Close"
+            aria-label={t.lightbox.close}
             className="absolute right-6 top-6 p-3 text-paper hover:text-red"
             onClick={() => onChange(null)}
           >
@@ -69,7 +70,7 @@ export function Lightbox({
           {images.length > 1 && (
             <>
               <button
-                aria-label="Previous"
+                aria-label={t.lightbox.prev}
                 className="absolute left-4 p-3 text-paper hover:text-red"
                 onClick={(e) => {
                   e.stopPropagation();
@@ -79,7 +80,7 @@ export function Lightbox({
                 <ChevronLeft className="h-6 w-6" />
               </button>
               <button
-                aria-label="Next"
+                aria-label={t.lightbox.next}
                 className="absolute right-4 p-3 text-paper hover:text-red"
                 onClick={(e) => {
                   e.stopPropagation();

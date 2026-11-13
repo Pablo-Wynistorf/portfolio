@@ -1,17 +1,18 @@
 import { Link } from "react-router";
 import { FadeIn, Label, Reveal } from "@/components/motion";
 import { certifications } from "@/data/content";
+import { t } from "@/i18n/t";
 
 export function Certifications() {
   return (
     <section id="certifications" className="border-t border-ink px-5 py-24 md:px-8 md:py-36">
       <div className="mb-16 grid gap-6 md:grid-cols-12">
         <Label n="04" className="md:col-span-3">
-          Certifications
+          {t.certs.label}
         </Label>
         <Reveal
           as="h2"
-          text="Certified, and medalled."
+          text={t.certs.title}
           className="font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight md:col-span-9 md:text-8xl"
         />
       </div>
@@ -42,7 +43,7 @@ export function Certifications() {
               <div className="font-mono text-[11px] uppercase tracking-wider text-muted group-hover:text-paper/60">{c.issuer}</div>
               <h3 className="mt-2 text-2xl font-semibold leading-tight tracking-tight">{c.title}</h3>
               <span className="mt-auto pt-8 text-sm font-medium">
-                <span className="border-b border-current pb-0.5">Details</span> →
+                <span className="border-b border-current pb-0.5">{t.certs.details}</span> →
               </span>
             </Link>
           </FadeIn>

@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { AnimatePresence, motion, useMotionValue, useScroll, useSpring, useTransform } from "motion/react";
 import { Label, Reveal } from "@/components/motion";
 import { allPhotos, projects } from "@/data/content";
+import { t } from "@/i18n/t";
 
 /** Index of projects; the cover follows the pointer while you hover a row. */
 function WorkIndex() {
@@ -14,10 +15,10 @@ function WorkIndex() {
   return (
     <div className="relative">
       <div className="hidden grid-cols-12 border-b border-ink pb-2 font-mono text-[11px] uppercase tracking-wider text-muted md:grid">
-        <span className="col-span-1">Year</span>
-        <span className="col-span-6">Project</span>
-        <span className="col-span-3">Location</span>
-        <span className="col-span-2 text-right">Type</span>
+        <span className="col-span-1">{t.projects.year}</span>
+        <span className="col-span-6">{t.projects.project}</span>
+        <span className="col-span-3">{t.projects.location}</span>
+        <span className="col-span-2 text-right">{t.projects.type}</span>
       </div>
       <ul
         ref={listRef}
@@ -87,9 +88,9 @@ function PhotoStrip() {
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
         <div className="mb-8 flex items-baseline justify-between px-5 font-mono text-[11px] uppercase tracking-wider md:px-8">
           <span>
-            <span className="text-red">(02.1)</span> On site
+            <span className="text-red">(02.1)</span> {t.projects.onSite}
           </span>
-          <span className="text-paper/50">Tirana · Istanbul · Athens · Munich · Wrocław · Basel · Frauenfeld · Lyon</span>
+          <span className="text-paper/50">{t.projects.cities}</span>
         </div>
         <motion.div style={{ x }} className="flex gap-4 pl-5 md:gap-6 md:pl-8">
           {photos.map((p, i) => (
@@ -122,17 +123,16 @@ export function Projects() {
       <div className="px-5 py-24 md:px-8 md:py-36">
         <div className="mb-14 grid gap-6 md:grid-cols-12">
           <Label n="02" className="md:col-span-3">
-            Selected work
+            {t.projects.label}
           </Label>
           <div className="md:col-span-9">
             <Reveal
               as="h2"
-              text="Built on site, under pressure."
+              text={t.projects.title}
               className="font-wide text-5xl font-black uppercase leading-[0.9] tracking-tight md:text-8xl"
             />
             <p className="mt-8 max-w-xl text-lg text-muted">
-              Stadium networks for UEFA finals, festival-wide infrastructure at Openair Frauenfeld, and the cloud
-              competition of a lifetime in Lyon.
+              {t.projects.text}
             </p>
           </div>
         </div>

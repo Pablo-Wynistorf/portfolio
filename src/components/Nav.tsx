@@ -5,16 +5,37 @@ import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Clock } from "@/components/Clock";
 import { openChat } from "@/components/chat/ChatWidget";
 import { profile } from "@/data/content";
+import { t } from "@/i18n/t";
+import { LANGS, lang, switchLang } from "@/i18n";
 
-const links = [
-  { to: "/#about", label: "About" },
-  { to: "/#work", label: "Work" },
-  { to: "/#journey", label: "Journey" },
-  { to: "/#certifications", label: "Certifications" },
-  { to: "/p/cv", label: "CV" },
-  { to: "/#contact", label: "Contact" },
-  { to: "/md", label: "MD" },
+const navLinks = () => [
+  { to: "/#about", label: t.nav.about },
+  { to: "/#work", label: t.nav.work },
+  { to: "/#journey", label: t.nav.journey },
+  { to: "/#certifications", label: t.nav.certifications },
+  { to: "/p/cv", label: t.nav.cv },
+  { to: "/#contact", label: t.nav.contact },
+  { to: "/md", label: t.nav.md },
 ];
+
+/** EN · DE · FR · IT. Picking one reloads the same page in that language and remembers it. */
+export function LangSwitch({ className = "" }: { className?: string }) {
+  return (
+    <div role="group" aria-label={t.nav.language} className={`flex gap-2 ${className}`}>
+      {LANGS.map((l) => (
+        <button
+          key={l}
+          onClick={() => l !== lang && switchLang(l)}
+          aria-current={l === lang ? "true" : undefined}
+          lang={l}
+          className={l === lang ? "underline underline-offset-4" : "opacity-60 hover:opacity-100"}
+        >
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 function RollLink({ to, label, onClick }: { to: string; label: string; onClick?: () => void }) {
   return (
@@ -32,6 +53,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const { scrollY } = useScroll();
+  const links = navLinks();
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const prev = scrollY.getPrevious() ?? 0;
@@ -62,17 +84,18 @@ export function Nav() {
             ))}
           </nav>
           <div className="flex items-center justify-self-end gap-5">
-            <Clock className="hidden lg:inline" />
+            <LangSwitch className="hidden md:flex" />
+            <Clock className="hidden xl:inline" />
             <button onClick={() => openChat()} className="hidden underline-offset-4 hover:underline md:inline">
-              Ask AI Pablo
+              {t.nav.askAi}
             </button>
             <button
               onClick={() => setOpen((o) => !o)}
               aria-expanded={open}
-              aria-label="Menu"
+              aria-label={t.nav.menu}
               className="flex h-8 items-center gap-2 md:hidden"
             >
-              {open ? "Close" : "Menu"}
+              {open ? t.nav.close : t.nav.menu}
             </button>
           </div>
         </div>
@@ -96,14 +119,15 @@ export function Nav() {
                   transition={{ delay: 0.25 + i * 0.05, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                   className="border-b border-paper/15 py-3"
                 >
-                  <Link to={l.to} className="flex items-baseline justify-between font-wide text-4xl font-bold uppercase">
+                  <Link to={l.to} className="flex items-baseline justify-between gap-3 font-wide text-[clamp(1.35rem,7.2vw,2.25rem)] font-bold uppercase [overflow-wrap:anywhere]">
                     {l.label}
-                    <span className="font-mono text-xs font-normal text-paper/50">0{i + 1}</span>
+                    <span className="shrink-0 font-mono text-xs font-normal text-paper/50">0{i + 1}</span>
                   </Link>
                 </motion.div>
               ))}
             </nav>
-            <div className="flex items-center justify-between font-mono text-xs uppercase">
+            <div className="flex flex-col items-start gap-5 font-mono text-xs uppercase">
+              <LangSwitch className="gap-4 text-sm" />
               <button
                 onClick={() => {
                   setOpen(false);
@@ -111,9 +135,8 @@ export function Nav() {
                 }}
                 className="text-red"
               >
-                Ask AI Pablo →
+                {t.nav.askAi} →
               </button>
-              <Clock />
             </div>
           </motion.div>
         )}

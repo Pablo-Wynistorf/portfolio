@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { LANGS, lang } from "@/i18n";
 
 const SITE = "https://www.pablo.one";
 
@@ -28,7 +29,9 @@ export function mdFor(pathname: string): string {
 export function useSeo({ title, description, path }: { title: string; description?: string; path: string }) {
   useEffect(() => {
     document.title = title;
-    const canonical = SITE + (path.endsWith("/") ? path : `${path}/`).replace(/^\/\/$/, "/");
+    const clean = (path.endsWith("/") ? path : `${path}/`).replace(/^\/\/$/, "/");
+    const inLang = (l: string) => SITE + (l === "en" ? "" : `/${l}`) + clean;
+    const canonical = inLang(lang);
     if (description) {
       setMeta('meta[name="description"]', "content", description, () => {
         const m = document.createElement("meta");
@@ -36,7 +39,15 @@ export function useSeo({ title, description, path }: { title: string; descriptio
         return m;
       });
     }
-    setMeta('link[rel="canonical"]', "href", path === "/" ? `${SITE}/` : canonical, () => {
+    for (const l of [...LANGS, "x-default"]) {
+      setMeta(`link[rel="alternate"][hreflang="${l}"]`, "href", inLang(l === "x-default" ? "en" : l), () => {
+        const a = document.createElement("link");
+        a.setAttribute("rel", "alternate");
+        a.setAttribute("hreflang", l);
+        return a;
+      });
+    }
+    setMeta('link[rel="canonical"]', "href", canonical, () => {
       const l = document.createElement("link");
       l.setAttribute("rel", "canonical");
       return l;

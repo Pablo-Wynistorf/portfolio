@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
+import { stripLang } from "@/i18n";
+import { t } from "@/i18n/t";
 import { AnimatePresence, animate, motion, useMotionValue, useReducedMotion, useTransform } from "motion/react";
 
 /** Loader: a 0→100 counter, then the panel lifts away. Once per session, home only. */
 export function Intro() {
   const reduce = useReducedMotion();
   const [show, setShow] = useState(
-    () => typeof window !== "undefined" && window.location.pathname === "/" && !sessionStorage.getItem("intro-seen"),
+    () => typeof window !== "undefined" && stripLang(window.location.pathname.replace(/\/+$/, "")) === "/" && !sessionStorage.getItem("intro-seen"),
   );
   const n = useMotionValue(0);
   const label = useTransform(n, (v) => String(Math.round(v)).padStart(3, "0"));
@@ -34,7 +36,7 @@ export function Intro() {
         >
           <div className="flex justify-between font-mono text-[11px] uppercase tracking-wider text-paper/60">
             <span>Pablo Wynistorf</span>
-            <span>Portfolio — {new Date().getFullYear()}</span>
+            <span>{t.intro.portfolio} — {new Date().getFullYear()}</span>
           </div>
           <div>
             <motion.div className="font-wide text-[28vw] font-black leading-[0.8] tracking-[-0.05em] md:text-[18vw]">
