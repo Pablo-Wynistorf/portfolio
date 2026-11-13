@@ -1,23 +1,17 @@
-FROM ubuntu:latest as builder
+FROM node:24-alpine AS builder
 
 WORKDIR /src
 
-RUN apt update && \
-    apt install -y git && \
-    apt install -y hugo
+COPY package.json package-lock.json ./
+RUN npm ci
 
-RUN hugo
+COPY . .
+RUN npm run build
 
-FROM alpine:latest
+FROM nginx:alpine
 
-RUN apk update && \
-    apk add --no-cache nginx
-
-WORKDIR /usr/share/nginx/html
-
-COPY --from=builder /src/public/ .
-
- COPY nginx.conf /etc/nginx/nginx.conf 
+COPY docker-deployment/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /src/dist/ /usr/share/nginx/html/
 
 EXPOSE 80
 

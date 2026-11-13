@@ -27,7 +27,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-          context: ./docker-deployment
+          context: .
+          file: ./docker-deployment/Dockerfile
           push: true
           tags: |
             pablo06/portfolio:latest
