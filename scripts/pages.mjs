@@ -91,7 +91,6 @@ function homeMd() {
     "## Projects",
     "",
     ...projects.map(projectLine),
-    "- Openair Frauenfeld 2025 and 2026: networking team at the festival",
     "",
     `## Company: ${company.name}`,
     "",
@@ -159,9 +158,9 @@ function projectMd(p) {
     if (s.bullets) out.push("");
   }
   if (p.video) out.push("## Video", "", `[Best of WorldSkills Lyon 2024 on YouTube](https://www.youtube.com/watch?v=${p.video})`, "");
-  out.push("## Links", "", ...p.links.map((l) => `- [${l.label}](${l.href})`), "");
-  out.push("## Image gallery", "", ...p.gallery.map((g) => `![${g.alt}](${abs(g.src)})`), "");
-  out.push(`Photos by ${profile.name}.${p.coverCredit ? ` Title image by [${p.coverCredit.label}](${p.coverCredit.href}).` : ""}`, "");
+  if (p.links.length) out.push("## Links", "", ...p.links.map((l) => `- [${l.label}](${l.href})`), "");
+  if (p.gallery.length) out.push("## Image gallery", "", ...p.gallery.map((g) => `![${g.alt}](${abs(g.src)})`), "");
+  if (p.gallery.length || p.coverCredit) out.push(`${p.gallery.length ? `Photos by ${profile.name}.` : ""}${p.coverCredit ? ` Title image by [${p.coverCredit.label}](${p.coverCredit.href}).` : ""}`, "");
   return out.join("\n");
 }
 
