@@ -89,7 +89,7 @@ function PhotoStrip() {
           <span>
             <span className="text-red">(02.1)</span> On site
           </span>
-          <span className="text-paper/50">Tirana · Istanbul · Athens · Frauenfeld · Dublin · Lyon</span>
+          <span className="text-paper/50">Tirana · Istanbul · Athens · Munich · Wrocław · Basel · Frauenfeld · Lyon</span>
         </div>
         <motion.div style={{ x }} className="flex gap-4 pl-5 md:gap-6 md:pl-8">
           {photos.map((p, i) => (
