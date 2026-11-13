@@ -4,8 +4,9 @@ export const profile = {
   name: "Pablo Wynistorf",
   firstName: "Pablo",
   lastName: "Wynistorf",
-  title: "IT Technician",
+  title: "Technical Account Manager, AWS",
   roles: [
+    "a Technical Account Manager at AWS",
     "an IT Technician",
     "a Cloud Engineer",
     "an AWS Solutions Architect",
@@ -433,7 +434,7 @@ export const certifications: Certification[] = [
   },
 ];
 
-export const timeline = [
+export const timeline: { year: string; title: string; text: string; to?: string; href?: string }[] = [
   {
     year: "2022",
     title: "UEFA Conference League Final, Tirana",
@@ -493,6 +494,12 @@ export const timeline = [
     title: "AWS Solutions Architect – Professional",
     text: "The professional-level AWS architecture certification.",
     to: "/certifications/aws-certified-solutions-architect-professional",
+  },
+  {
+    year: "Now",
+    title: "Technical Account Manager at AWS",
+    text: "Helping AWS customers run and grow their workloads in the cloud.",
+    href: "https://www.linkedin.com/in/pablo-wynistorf/",
   },
 ];
 

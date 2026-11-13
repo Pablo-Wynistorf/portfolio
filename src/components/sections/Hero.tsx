@@ -25,7 +25,7 @@ function BigLine({ text, delay }: { text: string; delay: number }) {
 
 const meta = [
   { k: "Based in", v: "Switzerland" },
-  { k: "Role", v: profile.title },
+  { k: "Now", v: "AWS · Technical Account Manager" },
   { k: "Focus", v: "AWS cloud · Event networks" },
 ];
 
@@ -65,8 +65,8 @@ export function Hero() {
             transition={{ delay: 0.7, duration: 1, ease: EASE }}
             className="max-w-xl text-2xl leading-[1.15] tracking-tight md:text-4xl"
           >
-            I build cloud infrastructure on AWS and the networks behind{" "}
-            <span className="font-serif italic">Europe's biggest</span> football finals and festivals.
+            Technical Account Manager at <span className="font-serif italic">AWS</span>, and the network builder
+            behind three UEFA finals and Openair Frauenfeld.
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
