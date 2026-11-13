@@ -89,7 +89,7 @@ function homeMd() {
     "- Certifications: AWS Certified Solutions Architect – Professional (Nov 2024) and – Associate (May 2023)",
     "- Awards: Medallion for Excellence in Cloud Computing at WorldSkills Lyon 2024; 2nd place at SwissSkills 2023",
     "- Final apprenticeship project (IPA, 2025): AWS hybrid cloud connectivity with a redundant Site-to-Site VPN and BGP",
-    "- Event networks: UEFA Conference League Finals 2022 (Tirana) and 2024 (Athens), UEFA Champions League Finals 2023 (Istanbul) and 2025 (Munich), UEFA Conference League Final 2025 (Wrocław), Eurovision Song Contest 2025 (Basel), Openair Frauenfeld 2023, 2024, 2025 and 2026",
+    "- Event networks: UEFA Conference League Finals 2022 (Tirana) and 2024 (Athens), UEFA Champions League Finals 2023 (Istanbul) and 2025 (Munich), UEFA Conference League Final 2025 (Wrocław), Eurovision Song Contest 2025 (Basel), Openair Frauenfeld 2022, 2023, 2024, 2025 and 2026",
     ...stats.map((s) => `- ${s.value}${s.suffix} ${s.label.toLowerCase()}`),
     "",
     "## About",

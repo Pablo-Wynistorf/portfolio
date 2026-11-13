@@ -174,7 +174,7 @@ export const projects: Project[] = [
   {
     slug: "openair-frauenfeld-2026",
     title: "Openair Frauenfeld 2026",
-    short: "Networking team at the festival, for the fourth year in a row.",
+    short: "Networking team at the festival, for the fifth year in a row.",
     location: "Frauenfeld, Switzerland",
     year: "2026",
     category: "Event Networking",
@@ -561,6 +561,36 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "openair-frauenfeld-2022",
+    title: "Openair Frauenfeld 2022",
+    short: "My first year in the festival's networking team.",
+    location: "Frauenfeld, Switzerland",
+    year: "2022",
+    category: "Event Networking",
+    tags: ["Festival", "Networking", "Infrastructure"],
+    cover: pj("openair-frauenfeld-2022", "main-stage-crowd"),
+    coords: [47.5536, 8.8988],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "Openair Frauenfeld 2022 was my first year in the festival's networking team, working on the network infrastructure of the festival grounds. I have been back every year since.",
+        ],
+      },
+    ],
+    gallery: [
+      { src: pj("openair-frauenfeld-2022", "main-stage-crowd"), alt: "Crowd at the main stage" },
+      { src: pj("openair-frauenfeld-2022", "vip-terrace"), alt: "VIP terrace" },
+      { src: pj("openair-frauenfeld-2022", "swisscom-stand"), alt: "Swisscom stand" },
+      { src: pj("openair-frauenfeld-2022", "crowd-from-stands"), alt: "The grounds from the stands" },
+      { src: pj("openair-frauenfeld-2022", "sunset-crowd"), alt: "Sunset over the festival" },
+      { src: pj("openair-frauenfeld-2022", "sound-desk"), alt: "Sound desk" },
+      { src: pj("openair-frauenfeld-2022", "light-desk"), alt: "Light and video control" },
+      { src: pj("openair-frauenfeld-2022", "stage-view"), alt: "View from the stage" },
+    ],
+    links: [],
+  },
+  {
     slug: "uefa-conference-league-final-2022-tirana",
     title: "UEFA Conference League Final 2022",
     short: "The first final: networks for the pitch, media tribune and UEFA staff in Tirana.",
@@ -660,6 +690,12 @@ export const timeline: { year: string; title: string; text: string; to?: string;
     to: "/projects/uefa-conference-league-final-2022-tirana",
   },
   {
+    year: "2022",
+    title: "Openair Frauenfeld",
+    text: "My first year in the festival's networking team.",
+    to: "/projects/openair-frauenfeld-2022",
+  },
+  {
     year: "2023",
     title: "AWS Solutions Architect – Associate",
     text: "Certified in designing distributed systems on AWS.",
@@ -746,7 +782,7 @@ export const timeline: { year: string; title: string; text: string; to?: string;
   {
     year: "2026",
     title: "Openair Frauenfeld",
-    text: "Networking for the festival, for the fourth year in a row.",
+    text: "Networking for the festival, for the fifth year in a row.",
     to: "/projects/openair-frauenfeld-2026",
   },
   {

@@ -245,7 +245,7 @@ export const content = {
     },
     projects: {
       "openair-frauenfeld-2026": {
-        short: "Im Netzwerkteam des Festivals, das vierte Jahr in Folge.",
+        short: "Im Netzwerkteam des Festivals, das fünfte Jahr in Folge.",
         location: "Frauenfeld, Schweiz",
         sections: oaf("2026"),
         gallery: [
@@ -441,6 +441,12 @@ export const content = {
         gallery: [{ alt: "Das Team" }, { alt: "Medientribüne" }, { alt: "Stadion" }, { alt: "Stadion" }, { alt: "VIP-Zone" }, { alt: "VIP-Zone" }, { alt: "Fanzone" }],
         links: [{ label: "Intranet-Beitrag (nur Swisscom)" }],
       },
+      "openair-frauenfeld-2022": {
+        short: "Mein erstes Jahr im Netzwerkteam des Festivals.",
+        location: "Frauenfeld, Schweiz",
+        sections: [{ heading: "Projektübersicht", body: ["Am Openair Frauenfeld 2022 war ich zum ersten Mal Teil des Netzwerkteams und arbeitete an der Netzwerk-Infrastruktur des Festivalgeländes. Seither bin ich jedes Jahr wieder dabei."] }],
+        gallery: [{ alt: "Publikum vor der Hauptbühne" }, { alt: "VIP-Terrasse" }, { alt: "Swisscom-Stand" }, { alt: "Das Gelände von der Tribüne" }, { alt: "Sonnenuntergang über dem Festival" }, { alt: "Mischpult" }, { alt: "Licht- und Videoregie" }, { alt: "Blick von der Bühne" }],
+      },
       "uefa-conference-league-final-2022-tirana": {
         short: "Der erste Final: Netzwerke für Spielfeld, Medientribüne und UEFA-Mitarbeitende in Tirana.",
         location: "Tirana, Albanien",
@@ -472,6 +478,7 @@ export const content = {
     },
     timeline: [
       { title: "UEFA Conference League Final, Tirana", text: "Mein erster UEFA-Final: Netzwerke für Spielfeld, Medientribüne und UEFA-Mitarbeitende." },
+      { title: "Openair Frauenfeld", text: "Mein erstes Jahr im Netzwerkteam des Festivals." },
       { title: "AWS Solutions Architect – Associate", text: "Zertifiziert im Entwerfen verteilter Systeme auf AWS." },
       { title: "UEFA Champions League Final, Istanbul", text: "Netzwerke für Spielfeldrand, Medien, VIP-Zelte und UEFA-Mitarbeitende." },
       { title: "Openair Frauenfeld", text: "Netzwerke für jeden Food-&-Beverage-Stand des Festivals." },
@@ -486,7 +493,7 @@ export const content = {
       { title: "UEFA Conference League Final, Breslau", text: "Stadionnetzwerke für den Conference-League-Final." },
       { title: "UEFA Champions League Final, München", text: "Stadionnetzwerke in der Allianz Arena." },
       { title: "Openair Frauenfeld", text: "Wieder im Netzwerkteam des Festivals." },
-      { title: "Openair Frauenfeld", text: "Netzwerke für das Festival, das vierte Jahr in Folge." },
+      { title: "Openair Frauenfeld", text: "Netzwerke für das Festival, das fünfte Jahr in Folge." },
       { title: "Nextenic GmbH gegründet", text: "Eine Softwarefirma in Bern, mit MailRift und Swiss Shipping Labels, beide von mir gebaut." },
       { year: "Heute", title: "Technical Account Manager bei AWS", text: "Ich helfe AWS-Kunden, ihre Workloads in der Cloud zu betreiben und auszubauen." },
     ],
