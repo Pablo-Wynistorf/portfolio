@@ -76,7 +76,7 @@ export const about = {
 };
 
 export const stats = [
-  { value: 3, suffix: "", label: "UEFA finals networked" },
+  { value: 5, suffix: "", label: "UEFA finals networked" },
   { value: 50, suffix: "+", label: "Cisco switches per festival" },
   { value: 30, suffix: "", label: "Access points per festival" },
   { value: 80, suffix: "+", label: "Countries at WorldSkills" },
@@ -175,11 +175,7 @@ export const projects: Project[] = [
     year: "2026",
     category: "Event Networking",
     tags: ["Festival", "Networking", "Infrastructure"],
-    cover: pj("openair-frauenfeld-2024", "openair-frauenfeld-2024"),
-    coverCredit: {
-      label: "baselundregion.ch",
-      href: "https://baselundregion.ch/2023/06/22/von-basel-nach-frauenfeld-das-openair-frauenfeld-vom-06-bis-08-juli-2023/",
-    },
+    cover: pj("openair-frauenfeld-2026", "main-stage-show"),
     coords: [47.5536, 8.8988],
     sections: [
       {
@@ -189,7 +185,16 @@ export const projects: Project[] = [
         ],
       },
     ],
-    gallery: [],
+    gallery: [
+      { src: pj("openair-frauenfeld-2026", "main-stage-show"), alt: "Main stage show at night" },
+      { src: pj("openair-frauenfeld-2026", "arena-stage-sunset"), alt: "Arena stage at sunset with the line-up screens" },
+      { src: pj("openair-frauenfeld-2026", "night-crowd"), alt: "Crowd at night" },
+      { src: pj("openair-frauenfeld-2026", "site-overview"), alt: "Festival site from above during the build-up" },
+      { src: pj("openair-frauenfeld-2026", "main-stage-build"), alt: "Main stage during the build-up" },
+      { src: pj("openair-frauenfeld-2026", "upstage-screens"), alt: "Upstage screens" },
+      { src: pj("openair-frauenfeld-2026", "on-stage"), alt: "View from the stage" },
+      { src: pj("openair-frauenfeld-2026", "rack"), alt: "Equipment racks on site" },
+    ],
     links: [],
   },
   {
@@ -215,6 +220,82 @@ export const projects: Project[] = [
       },
     ],
     gallery: [],
+    links: [],
+  },
+  {
+    slug: "uefa-champions-league-final-2025-munich",
+    title: "UEFA Champions League Final 2025",
+    short: "Stadium networks for the Champions League Final at the Allianz Arena in Munich.",
+    location: "Munich, Germany",
+    year: "2025",
+    category: "Event Networking",
+    tags: ["Sports", "Networking", "Infrastructure"],
+    cover: pj("uefa-champions-league-final-munich", "kickoff-show"),
+    coords: [48.2188, 11.6247],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "At the UEFA Champions League Final 2025 in Munich, our team built the network infrastructure across the stadium: for photographers on the pitch, media staff in the media tribune, and secure connectivity for all UEFA employees.",
+        ],
+      },
+      { heading: "Network setup", bullets: uefaBullets(false) },
+    ],
+    gallery: [
+      { src: pj("uefa-champions-league-final-munich", "stadium"), alt: "Allianz Arena before the final" },
+      { src: pj("uefa-champions-league-final-munich", "kickoff-show"), alt: "Kick-off show" },
+      { src: pj("uefa-champions-league-final-munich", "fans"), alt: "Fans in the stands" },
+    ],
+    links: [],
+  },
+  {
+    slug: "uefa-conference-league-final-2025-wroclaw",
+    title: "UEFA Conference League Final 2025",
+    short: "Stadium networks for the Conference League Final in Wrocław.",
+    location: "Wrocław, Poland",
+    year: "2025",
+    category: "Event Networking",
+    tags: ["Sports", "Networking", "Infrastructure"],
+    cover: pj("uefa-conference-league-final-wroclaw", "pitch"),
+    coords: [51.1411, 16.9435],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "At the UEFA Conference League Final 2025 in Wrocław, our team built the network infrastructure across the stadium: for photographers on the pitch, media staff in the media tribune, and secure connectivity for all UEFA employees.",
+        ],
+      },
+      { heading: "Network setup", bullets: uefaBullets(false) },
+    ],
+    gallery: [
+      { src: pj("uefa-conference-league-final-wroclaw", "pitch"), alt: "Pitch side" },
+      { src: pj("uefa-conference-league-final-wroclaw", "stadium"), alt: "Stadium" },
+      { src: pj("uefa-conference-league-final-wroclaw", "media-tribune"), alt: "Media tribune during the final" },
+    ],
+    links: [],
+  },
+  {
+    slug: "eurovision-song-contest-2025-basel",
+    title: "Eurovision Song Contest 2025",
+    short: "Event networks for the Eurovision Song Contest at the St. Jakobshalle in Basel.",
+    location: "Basel, Switzerland",
+    year: "2025",
+    category: "Event Networking",
+    tags: ["Music", "Networking", "Infrastructure"],
+    cover: pj("esc-basel", "arena"),
+    coords: [47.5386, 7.6203],
+    sections: [
+      {
+        heading: "Project overview",
+        body: [
+          "At the Eurovision Song Contest 2025 in Basel I was part of the networking team, working on the event's network infrastructure and monitoring it live during the shows.",
+        ],
+      },
+    ],
+    gallery: [
+      { src: pj("esc-basel", "arena"), alt: "St. Jakobshalle during the show" },
+      { src: pj("esc-basel", "noc"), alt: "Network monitoring room during the live show" },
+    ],
     links: [],
   },
   {
@@ -579,6 +660,24 @@ export const timeline: { year: string; title: string; text: string; to?: string;
   },
   {
     year: "2025",
+    title: "Eurovision Song Contest, Basel",
+    text: "Event networks at the St. Jakobshalle.",
+    to: "/projects/eurovision-song-contest-2025-basel",
+  },
+  {
+    year: "2025",
+    title: "UEFA Conference League Final, Wrocław",
+    text: "Stadium networks for the Conference League Final.",
+    to: "/projects/uefa-conference-league-final-2025-wroclaw",
+  },
+  {
+    year: "2025",
+    title: "UEFA Champions League Final, Munich",
+    text: "Stadium networks at the Allianz Arena.",
+    to: "/projects/uefa-champions-league-final-2025-munich",
+  },
+  {
+    year: "2025",
     title: "Openair Frauenfeld",
     text: "Back in the networking team for the festival.",
     to: "/projects/openair-frauenfeld-2025",
@@ -607,6 +706,9 @@ export const places = [
   { name: "Tirana", coords: [41.3275, 19.8187] as [number, number] },
   { name: "Istanbul", coords: [41.0082, 28.9784] as [number, number] },
   { name: "Athens", coords: [37.9838, 23.7275] as [number, number] },
+  { name: "Munich", coords: [48.2188, 11.6247] as [number, number] },
+  { name: "Wrocław", coords: [51.1411, 16.9435] as [number, number] },
+  { name: "Basel", coords: [47.5386, 7.6203] as [number, number] },
   { name: "Lyon", coords: [45.764, 4.8357] as [number, number] },
   { name: "Dublin", coords: [53.3498, -6.2603] as [number, number] },
   { name: "Frauenfeld", coords: [47.5536, 8.8988] as [number, number] },

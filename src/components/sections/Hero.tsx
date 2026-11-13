@@ -67,7 +67,7 @@ export function Hero() {
             className="max-w-xl text-[1.65rem] leading-[1.15] tracking-tight md:text-4xl"
           >
             Technical Account Manager at <span className="font-serif italic">AWS</span>, founder of Nextenic GmbH,
-            and the network builder behind three UEFA finals and Openair Frauenfeld.
+            and the network builder behind five UEFA finals and Openair Frauenfeld.
           </motion.p>
           <motion.div
             initial={{ opacity: 0 }}
