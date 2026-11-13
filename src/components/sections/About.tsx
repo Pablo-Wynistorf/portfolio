@@ -28,6 +28,7 @@ export function About() {
         </div>
         <FadeIn className="md:col-span-5 md:col-start-5">
           <p className="text-lg leading-relaxed">{about.competition}</p>
+          <p className="mt-6 text-lg leading-relaxed">{about.now}</p>
           <Link
             to="/projects/worldskills"
             className="mt-6 inline-flex items-center gap-2 border-b border-ink pb-0.5 text-sm font-medium hover:border-red hover:text-red"

@@ -31,6 +31,8 @@ export const about = {
     "Hi, I'm Pablo Wynistorf. I love technology, I follow a wide range of IT projects, and I compete in cloud computing on the world stage.",
   competition:
     "At SwissSkills 2023 I reached second place in Cloud Computing. After an assessment between the best competitors of 2022 and 2023, the SwissSkills committee selected me for WorldSkills 2024 in Lyon, where I received the Medallion for Excellence for my skills in cloud computing on AWS.",
+  now:
+    "Fast forward to 2026: I have now worked for more than a year at Amazon Web Services, the largest cloud provider on the planet. As a Technical Account Manager, I help enterprise customers run workloads that millions of people use every day.",
   outro:
     "This mix of activities shapes a well-rounded lifestyle. It reflects not only professional work but also a commitment to a satisfying life beyond it.",
   hobbies: [
